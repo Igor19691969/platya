@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="main">
+        <h3>Сообщения</h3>
+        <div class="row">
+            <mongo-paginator-all type="order" page="paginate.page" row="paginate.row" rows-per-page="50" total-items="paginate.totalItems"></mongo-paginator-all>
+
+
+                <table class="table col-lg-12  table-bordered table_ofice" style="font-size: 14px; width: 100%; overflow: auto">
+                    <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>date</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>status</th>
+                        <th>text</th>
+                        <th>удалить</th>
+
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr ng-repeat-start="mes in messages track by mes._id">
+                       <td id="{{mes._id}}">{{paginate.row*paginate.page+$index+1}}</td>
+                        <td><a ng-click="readText(mes,$index)">{{moment(mes.date).format('MMM Do YY')}}</a></td>
+                        <td>{{mes.name}}</td>
+                        <td>{{mes.email}}</td>
+                        <td>{{(mes.read)?'прочитано':'не прочитано'}}</td>
+                        <td>{{cutText(mes.text,50)}}...</td>
+                        <td><a class="btn btn-danger" data-ng-click="deleteMessage(mes)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    </tr>
+                    <tr ng-repeat-end ng-show="showText[$index]">
+                        <td colspan="7">
+                            {{mes.text}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+<br />
+<br />
+</div>

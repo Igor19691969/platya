@@ -1,0 +1,104 @@
+<div class="bg-content">
+    <!--============================== content =================================-->
+    <div id="content">
+        <div class="container">
+            <div class="row center">
+                <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h1 class="nazv">
+                        Оплата заказа
+                    </h1>
+                </div>-->
+                <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-6 col-xs-12" style="margin-top: 20%; margin-bottom: 20%">
+                    <img src="../../../img/dostavka/21.png" class="mb">
+
+                    <form method="POST" action="https://www.liqpay.com/api/pay"
+                          accept-charset="utf-8">
+                        <input type="hidden" name="public_key" value="{{order.publicKey}}" />
+                        <input type="hidden" name="amount" value="{{order.sum}}"/>
+                        <!--<input type="hidden" name="amount" value="{{order.sum}}"/>-->
+                        <input type="hidden" name="currency" value="{{order.currency}}"/>
+                        <input type="hidden" name="description" value="{{order.desc}}"/>
+                        <!--<input type="hidden" name="order_id" value="{{order.num}}"/>-->
+                        <input type="hidden" name="result_url" value="http://jadone.biz/{{$stateParams.lang}}/customorder"/>
+                        <input type="hidden" name="server_url" value="http://jadone.biz/api/order/callback/{{order.num}}"/>
+                        <input type="hidden" name="type" value="buy"/>
+                        <!--<input type="hidden" name="signature" value="Q6AKTktJClt8gw="/>-->
+                        <input type="hidden" name="language" value="ru"/>
+                        <input type="hidden" name="sandbox" value="0"/>
+                        <input type="image"
+                               src="//static.liqpay.com/buttons/p1ru.radius.png"/>
+                    </form>
+
+                   <!-- <button class="btn btn-1" style="font-size: 26px; font-weight: bold">ОПЛАТИТЬ</button>-->
+                </div>
+                <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-6 col-xs-12" style="margin-top: 20%; margin-bottom: 20%">
+                    <img src="../../../img/dostavka/20.png" class="mb">
+                    <!--<script async="async"
+                            src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=olegmaslov74@yandex.ru"
+                            ></script>-->
+
+
+                    <!--<form name="_xclick" action="https://www.paypal.com/ru/cgi-bin/webscr" method="post">
+                        <input type="hidden" name="cmd" value="_xclick">
+                        <input type="hidden" name="business" value="olegmaslov74@yandex.ru">
+                        <input type="hidden" name="currency_code" value="{{order.currency}}">
+                        <input type="hidden" name="item_name" value="{{order.desc}}">
+                        <input type="hidden" name="amount" value="{{order.sum}}">
+                        <input type="hidden" name="sandbox" value="1">
+                        <input type="hidden" name="return" value="http://localhost:8800/{{$stateParams.lang}}/customorder">
+                        <input type="hidden" name="notify_url" value="http://jadone.biz/api/order/callback/{{order.num}}">
+                        <input ng-disabled="order.currency=='UAH'" type="image" src="https://www.paypalobjects.com/en_US/i/btn/x-click-but6.gif" border="0" name="submit" alt="Платежи PayPal — быстро, безопасно и бесплатно!">
+                    </form>-->
+                    <!--<button class="btn btn-1" style="font-size: 26px; font-weight: bold">ОПЛАТИТЬ</button>-->
+                </div>
+            </div><!--row-->
+        </div><!--container-->
+    </div><!--content-->
+</div><!--bg-content-->
+
+
+
+<!--
+<div class="bg-content">
+    <div class="container">
+
+            <h3>Оплата</h3>
+            <div class="row">
+                <form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/pay">
+                    <input type="hidden" name="public_key" value="i34349240742" />
+                    <input type="hidden" name="amount" value="5" />
+                    <input type="hidden" name="currency" value="UAH" />
+                    <input type="hidden" name="description" value="Мой товар" />
+                    <input type="hidden" name="type" value="buy" />
+                    <input type="hidden" name="pay_way" value="card,delayed" />
+                    <input type="hidden" name="server_url" value="http://jadone.biz/api/pay/callback" />
+                    <input type="hidden" name="order_id" value="2246" />
+                    <input type="hidden" name="language" value="ru" />
+                    <input type="image" src="//static.liqpay.com/buttons/p1ru.radius.png" name="btn_text" />
+                </form>
+            </div>
+        <a href="https://www.liqpay.com/api/pay?&public_key=i34349240742&amount=5&currency=UAH&description=Мой товар&type=buy&pay_way=card,delayed&language=ru">
+            sssss</a>
+
+
+        <form method="POST" action="https://www.liqpay.com/api/pay"
+              accept-charset="utf-8">
+            <input type="hidden" name="public_key" value="i34349240742" />
+            <input type="hidden" name="amount" value="5"/>
+            &lt;!&ndash;<input type="hidden" name="amount" value="{{order.sum}}"/>&ndash;&gt;
+            <input type="hidden" name="currency" value="{{order.currency}}"/>
+            <input type="hidden" name="description" value="Мой товар"/>
+            &lt;!&ndash;<input type="hidden" name="order_id" value="{{order.num}}"/>&ndash;&gt;
+            <input type="hidden" name="result_url" value="http://localhost:8800/{{$stateParams.lang}}/customorder"/>
+            <input type="hidden" name="server_url" value="http://jadone.biz/api/order/callback/{{order.num}}"/>
+            <input type="hidden" name="type" value="buy"/>
+            &lt;!&ndash;<input type="hidden" name="signature" value="Q6AKTktJClt8gw="/>&ndash;&gt;
+            <input type="hidden" name="language" value="ru"/>
+            <input type="hidden" name="sandbox" value="1"/>
+            <input type="image"
+                   src="//static.liqpay.com/buttons/p1ru.radius.png"/>
+        </form>
+
+
+    </div>
+ </div>-->

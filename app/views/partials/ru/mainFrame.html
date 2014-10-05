@@ -1,0 +1,482 @@
+<style>
+    .dialogs-default p{
+        color: red;
+    }
+</style>
+<div id="panel">
+    <spinner id-set="contact" enable="contact.feedbackDisabled"></spinner>
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="navbar-inner">
+            <div class="container">
+                    <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"
+                            ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <a class="brand" onclick="window.location.href='/admin123'" >Jadone Fashion</a>
+                    <!--<a class="navbar-brand" href="index.html"><img src="img/bg/2.png"></a>-->
+
+                        <div class="collapse navbar-collapse navbar-ex1-collapse pull-left" collapse="isCollapsed">
+                            <ul class="nav navbar-nav">
+                                <li class="home">
+                                    <a ui-sref="language.home"><span class="glyphicon glyphicon-home"></span></a>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li ng-hide="Auth.isLoggedIn()">
+                                    <a ui-sref="language.login" ng-click="">Вход</a>
+                                </li>
+                                <li ng-show="Auth.isLoggedIn()">
+                                    <a ng-click="logout()">Выйти</a>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li class="dropdown" id="changeCurrencyUl">
+                                    <a  href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="vw"ng-src="img/icon/{{config.currency[currency][1]}}_inv.png">{{config.currency[currency][1]}} <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li ng-hide="countryRUB || countryUSD"><a ng-click="changeCurrency('UAH')"><img class="vw"src="img/icon/uah.png">UAH</a></li>
+                                        <li ><a ng-click="changeCurrency('RUB')"><img class="vw"src="img/icon/rub.png">RUB</a></li>
+                                        <li ng-hide="(countryUAH || countryRUB) && user.role!='admin'"><a ng-click="changeCurrency('USD')"><img class="vw"src="img/icon/usd.png">USD</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <!--<li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img class="lw" ng-src="{{lanImg}}"><span ng-bind="langName"></span><b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        &lt;!&ndash;<li><a ng-click="changeLanguage('en')"><img class="lw" src="img/icon/en.png">english</a></li>&ndash;&gt;
+                                        <li><a ng-click="changeLanguage('ru')"><img class="lw" src="img/icon/ru.png">русский</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>-->
+                                <li title="корзина">
+                                    <a ui-sref="language.cart" class="bag" ><img src="../../../img/cart.png"></a>
+                                    <span ng-show="itemsInCaet" class="badge badge-success" ng-bind="itemsInCaetlocalCart.cartCount()"></span>
+                                    <!--ng-bind="localCart.cartCount()"-->
+                                </li>
+                                <li class="divider-vertical" ng-show="Auth.isLoggedIn()"></li>
+                                <li ng-show="user.role" title="чат">
+                                    <a ui-sref="language.chat" class="bag"><img src="../../../img/chat2.png"></a>
+                                    <!--<sup ng-hide="msgs"><strong>new</strong></sup>-->
+                                    <span class="badge badge-success" ng-show="msgs=displayNewMsg()">{{msgs}}</span>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="divider-vertical"></li>
+
+                                <li>
+                                    <a ui-sref="language.help"><!--<span class="glyphicon glyphicon-question-sign icon-white" style="font-size: 20px;"></span><span style="font-size: 18px;" class=" glyphicon glyphicon-info-sign"></span>-->CПРАВКА</a>
+
+                                </li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                        <form data-ng-submit="goToSearch(searchStr)">
+                            <div class="input-group search">
+                                <input type="text" class="form-control" ng-model="searchStr">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger"  type="submit"><span class="glyphicon glyphicon-search icon-white" style="padding-top: 2px;"></span> </button>
+                                </span>
+                            </div>
+                        </form>
+            </div><!-- /.container -->
+        </div><!--navbar-inner-->
+    </nav>
+</div><!--panel-->
+<!--============================== header =================================-->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="navbar navbar_">
+                    <!--<div class="container">-->
+                    <a class="btn btn-navbar " data-toggle="collapse" data-target=".navbar-collapse_"
+                            ng-init="isCollapsed1 = true" ng-click="isCollapsed1 = !isCollapsed1">Меню<b class="sf-sub-indicator"></b>
+
+                    </a>
+
+                        <h1 class="brand"><a ui-sref="language.home"><img alt="" src="img/background/brand5.jpg"> </a></h1>
+                        <div class="collapse navbar-collapse nav-collapse_ navbar-ex2-collapse" collapse="isCollapsed1" >
+                            <ul class="nav sf-menu pull-right" id="example1">
+                                <li class="sub-menu" ng-class="{ active: $state.includes('language.stuff')||$state.includes('language.stuff.detail') }" >
+                                    <a ><span ng-bind="categories[0].name[lang]"></span></a>
+                                    <ul>
+                                        <li ng-repeat="category in categories|filter:{section:categories[0]._id}">
+                                            <a ng-click="toCategory({lang:lang,category:category._id,categoryName:category.name[lang]})">{{category.name[lang]}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li  ng-class="{ active: $state.includes('language.stuffSale') }" >
+                                    <a ui-sref="language.stuffSale">sale</a>
+                                </li>
+
+                                <li class="sub-menu"  ng-show="Auth.isLoggedIn()" ng-class="{ active: $state.includes('language.profile') ||
+                                $state.includes('language.customOrder')||$state.includes('language.chat')}"><a >кабинет</a>
+                                    <ul>
+                                        <li ><a  ui-sref="language.profile">личные<br> данные </a></li>
+                                        <li ><a  ui-sref="language.customOrder" >управление<br> заказами</a></li>
+                                        <li ><a  ui-sref="language.chat">чат </a></li>
+                                        <li ><a ng-click="logout()">выйти</a></li>
+                                    </ul>
+                                </li>
+                                <li class="sub-menu" ng-class="{ active: $state.includes('language.payment') ||
+                                $state.includes('language.delivery')||$state.includes('language.aboutus')||$state.includes('language.news')}"><a >инфо</a>
+                                    <ul>
+                                        <li><a ui-sref="language.payment">оплата </a></li>
+                                        <li><a ui-sref="language.delivery">доставка</a></li>
+                                       <!-- <li><a ui-sref="language.reviews">отзывы</a></li>-->
+                                        <li><a ui-sref="language.aboutus">о нас</a></li>
+                                        <li><a ui-sref="language.news">новости</a></li>
+                                    </ul>
+                                </li>
+                                <li   ng-class="{ active: $state.includes('language.contacts')}" ui-sref="language.contacts"><a>контакты</a>
+                            </ul>
+
+                            <!--<ul class="nav navbar-nav" id="example1" style="font-size: 14px;">
+
+
+
+                                <li class="dropdown open" >
+                                    <a href="#">Инфо<b class="caret"></b></a>
+                                    <ul class="dropdown-menu dropdown-menu_top sf_drop">
+                                        <li>
+                                            <a ui-sref="language.contacts">Контакты</a>
+                                        </li>
+                                        <li>
+                                            <a ui-sref="language.news">События</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+-->
+                        </div>
+                </div><!--navbar-->
+            </div><!--span12-->
+        </div><!--row-->
+    </div><!--container clearfix-->
+</header>
+
+
+<!--============================== end header =================================-->
+
+
+
+<div ui-view></div>
+
+
+<!--============================== footer =================================-->
+<footer style="background-color: #333">
+    <div class="container clearfix">
+
+        <div class="col-lg-4">
+            <form ng-submit="subscribe.send()">
+            <div class="input-group mb" style="width: 100%">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                <input class="form-control" type="email" ng-model="subscribe.email" required="">
+            </div>
+            <button class="btn btn-block btn-danger btn-1 btn-lg mb" type="submit">подписаться</button>
+            </form>
+                <ul class="list-social">
+                    <li><a class="icon-1" href="#"></a></li>
+                    <li><a class="icon-2" href="#"></a></li>
+                    <li><a class="icon-3" href="#"></a></li>
+                    <li><a class="icon-6" href="http://vk.com/jadoneopt"></a></li>
+                </ul>
+
+            <hr>
+            <div>
+                <ul class="col-lg-12" style="font-size: 20px;">
+                    <li class="col-lg-4"><a ui-sref="language.news" class="a-footer">новости</a></li>
+                    <li class="col-lg-4"><a ui-sref="language.contacts" class="a-footer">контакты</a></li>
+                    <li class="col-lg-4"><a ui-sref="language.stuffSale({'sale':'new'})" class="a-footer">новинки</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-lg-4" style="font-size: 18px; padding-left: 60px;">
+            <ul>
+                <li style="list-style: square;" ng-repeat="category in categories|filter:{section:categories[0]._id}">
+                    <a class="a-footer" ng-click="toCategory({lang:lang,category:category._id,section:'category'})">{{category.name[lang]}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <form class="form" name="form" data-ng-submit="contact.sendMessage()">
+                <div class="input-group mb" style="width: 100%">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    <input class="form-control" type="text" data-ng-model="contact.msg.name" required>
+                </div>
+                <div class="input-group mb" style="width: 100%">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    <input class="form-control" type="email"  data-ng-model="contact.msg.email" required>
+                </div>
+                <textarea class="mb" style="width: 100%; padding: 10px;" placeholder="введите текст сообщения" rows="6"  data-ng-model="contact.msg.text"></textarea>
+                <div class="fade in text-error_up" ng-show="contact.errorText">
+                    <p class="help-block">введите текст сообщения не менее 10 символов </p>
+                    <!--<p ng-show="!errorText">&nbsp</p>-->
+                </div>
+                <button class="btn btn-block btn-danger btn-1 btn-lg mb" ng-disabled="contact.feedbackDisabled" type="submit">отправить сообщение</button>
+
+
+                <div class="fade in text-error"  ng-show="contact.SuccessFeedBack">
+                    <p>Ваше сообщение отправлено</p>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+
+
+        <!--<div class="privacy pull-left">Website designed and powered by <a href="#" target="_blank">Sergio Zuk</a></div>-->
+    </div>
+    <div class="col-lg-12 text-center" style="background-color: #fff; margin-bottom: 30px;">
+        <a ui-sref="language.home"><h1 class="nazv" style=" margin-top: 50px; ">Jadone Fashion 2014</h1></a>
+    </div>
+</footer>
+
+<script>
+   /* $(document).ready(function(){
+        window.setTimeout($('.sf-menu').superfish(),2000);
+
+    });*/
+   /*$(document).ready(function(){
+       // initialise plugins
+        $("ul.sf-menu").superfish({
+            useClick: true
+        });
+   })
+
+   *//* $(function(){
+       $('.sf-menu').superfish()
+    })*//*
+    var userag = navigator.userAgent.toLowerCase();
+    var isAndroid = userag.indexOf("android") > -1;
+    //ipad and iphone fix
+    if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || isAndroid) {
+        $("ul.sf-menu").bind('click',function() {
+            $('ul.sf-menu').hideSuperfishUl();
+        });
+    }*/
+
+   (function($){ //create closure so we can safely use $ as alias for jQuery
+
+       $(document).ready(function(){
+           // initialise plugins
+           /* $("ul.sf-menu").superfish({
+            useClick: true
+            });*/
+
+
+           // initialise plugin
+           var example = $('#example1').superfish({
+               //add options here if required
+               useClick: true
+           });
+
+           // buttons to demonstrate Superfish's public methods
+           $('.destroy').on('click', function(){
+               example.superfish('destroy');
+           });
+
+           $('.init').on('click', function(){
+               example.superfish();
+           });
+
+           $('.open').on('click', function(){
+               example.children('li:first').superfish('show');
+           });
+
+           $('.close').on('click', function(){
+               example.children('li:first').superfish('hide');
+           });
+       });
+
+   })(jQuery);
+
+
+
+   /* $(document).ready(function(){
+    $('.sf-menu').superfish()
+    });*/
+
+   /*$(function(){
+    $('.sf-menu').superfish()
+    })*/
+   //alert(navigator.userAgent);
+   var userag = navigator.userAgent.toLowerCase();
+   var isAndroid = userag.indexOf("android") > -1;
+   //ipad and iphone fix
+   if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || isAndroid) {
+       //alert(navigator.userAgent);
+       $("ul#example").bind('click',function() {
+           $('ul#example').hideSuperfishUl();
+       });
+
+       /*$("ul.sf_drop").bind('click',function() {
+           $('ul.sf_drop').hideSuperfishUl();
+       });*/
+
+   }
+</script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-47855254-1', 'jadone.biz');
+    //ga('send', 'pageview');
+
+</script>
+
+<!-- Yandex.Metrika informer -->
+<!-- <a href="http://metrika.yandex.ru/stat/?id=23946445&amp;from=informer"
+    target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/23946445/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+                                        style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:23946445,lang:'ru'});return false}catch(e){}"/></a>-->
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter23946445 = new Ya.Metrika({id:23946445,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/23946445" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<!--Признак первосортных мозгов — это умение держать в голове две взаимоисключающие мысли одновременно, не теряя при этом способности мыслить
+
+ученых кругах феномен взаимоисключающих параграфов именуется просто — парадокс. Могут вызывать либо равнодушие, либо когнитивный диссонанс.
+Чем больше самоубийц, тем меньше самоубийц.
+Отвечать, когда вас спрашивают, молчать, когда с вами разговаривает старший по званию!
+        Так вот я и не пойму. Сепаратиситы это кто. умные или шизики?-->
+
+<div>
+    <script type="text/javascript" language="JavaScript">// <![CDATA[
+/*function get_cookie(cookie_name) {
+    var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+    if(results) {return(unescape(results[2]))}else {return 0;}}
+
+if(get_cookie("popapnum")<10) {
+    var x = get_cookie("popapnum");
+    var popapnum = ++x;
+    var cookie_date = new Date ( 2043, 01, 15 );
+    var exitsplashmessage = '***************************************\n\n ВАЖНОЕ СООБЩЕНИЕ:\n\n КЛИКНИТЕ ПО КНОПКЕ ОТМЕНА/CANCEL\n ОСТАНЬТЕСЬ НА ЭТОЙ СТРАНИЦЕ И \n БЕСПЛАТНО ПОЛУЧИТЕ\n КНИГУ"ОСНОВЫ ИНФОБИЗНЕСА"!\n\n НАЖМИТЕ КНОПКУ«ОТМЕНА»\n\n***************************************';
+    var exitsplashpage = 'http://jadone.biz/ru/stuff/category/5364d9c9707981801b25648f';
+    function addLoadEvent(func) {
+        var oldonload = window.onload;
+        if (typeof window.onload != 'function') {
+            window.onload = func;
+        } else {
+            window.onload = function() { if (oldonload) { oldonload(); } func(); }}
+    }
+    function addClickEvent(a,i,func) {
+        if (typeof a[i].onclick != 'function') { a[i].onclick = func; }
+    }
+    var theDiv = '<div id="ExitSplashDiv" style="display:block; width:100%; height:100%; position:absolute; background:#FFFFFF; margin-top:0px; margin-left:0px;" align="center">';
+    theDiv = theDiv + '<iframe src="'+exitsplashpage+'" width="100%" height="100%" align="middle" frameborder="0"></iframe>';
+    theDiv = theDiv + '</div>';
+    var theBody = document.body;
+    if (!theBody) {
+        theBody = document.getElementById("body");
+        if (!theBody) {
+            theBody = document.getElementsByTagName("body")[0];
+        }
+    }
+    var PreventExitSplash = false;
+    function DisplayExitSplash(){
+        if(PreventExitSplash == false){
+            document.cookie = "popapnum="+popapnum; "expires=" + cookie_date.toGMTString();
+            window.scrollTo(0,0);
+            PreventExitSplash=true;
+            divtag = document.createElement("div");
+            divtag.setAttribute("id","ExitSplashMainOuterLayer");
+            divtag.style.position="absolute";
+            divtag.style.width="100%";
+            divtag.style.height="100%";
+            divtag.style.zIndex="99";
+            divtag.style.left="0px";
+            divtag.style.top="0px";
+            divtag.innerHTML=theDiv;
+            theBody.innerHTML="";
+            theBody.topMargin="0px";
+            theBody.rightMargin="0px";
+            theBody.bottomMargin="0px";
+            theBody.leftMargin="0px";
+            theBody.style.overflow="hidden";
+            theBody.appendChild(divtag);
+            return exitsplashmessage;
+        }
+    }
+    var a = document.getElementsByTagName('A');
+    for (var i = 0; i < a.length; i++) {
+        if(a[i].target !== '_blank') {
+            addClickEvent(a,i, function(){ PreventExitSplash=true; });
+        } else{
+            addClickEvent(a,i, function(){ PreventExitSplash=false;});
+        }
+    }
+    var disablelinksfunc = function(){
+        var a = document.getElementsByTagName('A');
+        for (var i = 0; i < a.length; i++) {
+            if(a[i].target !== '_blank') {
+                addClickEvent(a,i, function(){ PreventExitSplash=true; });
+            } else{
+                addClickEvent(a,i, function(){ PreventExitSplash=false;});
+            }
+        }
+    }
+    addLoadEvent(disablelinksfunc);
+    var disableformsfunc = function(){
+        var f = document.getElementsByTagName('FORM');
+        for (var i=0;i<f.length;i++){
+            if (!f[i].onclick){
+                f[i].onclick=function(){ PreventExitSplash=true; }
+            }else if (!f[i].onsubmit){
+                f[i].onsubmit=function(){ PreventExitSplash=true; }}
+        }
+    }
+
+    addLoadEvent(disableformsfunc);
+    window.onbeforeunload = DisplayExitSplash;}
+
+function BeforLoadOpera(){
+    if(window.opera){
+        if (!window.closed && PreventExitSplOpera == false && window.event.clientY < 15 && window.event.clientX > 0 && window.event.clientY > -20){
+
+            DisplayExitSplash();
+
+            if (confirm(exitsplashmessage) ){window.close();}
+
+            PreventExitSplOpera = true;}}}
+
+if(window.opera){PreventExitSplOpera = false;PreventExitSplash = false;}*/
+// ]]></script></div>
+<!-- Put this script tag to the <head> of your page -->
+
+
+<!-- Put this script tag to the place, where the Share button will be -->
+
+<!--
+<script type="text/javascript">
+    document.write(VK.Share.button(false,{type: "custom", text: "<img src=\"http://vk.com/images/vk32.png?1\" />"}));
+</script>-->

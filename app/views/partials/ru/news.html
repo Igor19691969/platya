@@ -1,0 +1,133 @@
+<script type="text/ng-template" id="paginationControl.html">
+    <div class="text-center" ng-show="paginator.pageCount() > 1">
+        <ul class="pagination">
+            <li ng-click="paginator.firstPage()" ng-class="paginator.isFirstPage() && 'disabled'">
+                <a>
+                    <i class="glyphicon glyphicon-fast-backward" ng-class="paginator.isFirstPage() && 'icon-white'"></i>
+                </a>
+            </li>
+            <li ng-click="paginator.perviousPage()" ng-class="paginator.isFirstPage() && 'disabled'">
+                <a>
+                    <i class="glyphicon glyphicon-step-backward" ng-class="paginator.isFirstPage() && 'icon-white'"></i>
+                </a>
+            </li>
+            <li ng-click="paginator.setPage(i)" ng-repeat="i in [] | forLoop:0:paginator.pageCount()" ng-class="paginator.page==i && 'active'">
+                <a>{{i+1}}</a>
+            </li>
+            <li ng-click="paginator.nextPage()" ng-class="paginator.isLastPage() && 'disabled'">
+                <a>
+                    <i class="glyphicon glyphicon-step-forward" ng-class="paginator.isLastPage() && 'icon-white'"></i>
+                </a>
+            </li>
+            <li ng-click="paginator.lastPage()" ng-class="paginator.isLastPage() && 'disabled'">
+                <a>
+                    <i class="glyphicon glyphicon-fast-forward" ng-class="paginator.isLastPage() && 'icon-white'"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<div class="bg-content">
+    <div id="content">
+        <div class="button_fixed" id="toTop">
+            <a ng-click="scrollTo('panel')"class="btn btn-inverse"><span class="glyphicon glyphicon-arrow-up icon-white"></span></a>
+        </div>
+        <div class="container" ng-hide="$state.includes('language.news.detail')">
+            <!--<div class="button_fixed" id="toTop">
+                <a ng-click="scrollTo('panel')"class="btn btn-inverse"><span class="glyphicon glyphicon-arrow-up icon-white"></span></a>
+            </div>-->
+
+            <div class="row" >
+
+                <!--<div class="col-lg-8 col-lg-offset-2 ">
+                    <h1  class="page-header">Новости Autofan<small>&nbsp  в Харькове</small></h1>
+
+                    <div class="slogan_brand">
+                        <p ng-bind-html="trustHtml(textList)"></p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 portfolio-item" ng-repeat-start="item in newsList|filter:filterLists()| paginate:rowsPerPage">
+                        <a ui-sref="language.news.detail({id:item._id})"><img class="img-responsive" ng-src="{{item.img}}"></a>
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-12 portfolio-item">
+                        <h3>
+                            <a ui-sref="language.news.detail({id:item._id})"><span ng-bind="item.name[lang]"></span></a>
+                        </h3>
+                        <h4 ng-bind="displayDate(item.date)">--> <!--<span ng-bind="item.artikul"></span>--></h4>
+                        <!--<p ng-bind="item.desc[lang]"></p>
+                        <h4 class="pull-left col-lg-6"><span ng-bind="item.author.name"></span></h4>
+                        <a class="btn btn-primary pull-right col-lg-3" ui-sref="language.news.detail({id:item._id})">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                    <div class="clearfix" ng-repeat-end></div>
+                </div>-->
+                <div class="col-lg-12">
+
+                    <div class="slogan_brand">
+                        <p ng-bind-html="trustHtml(textList)"></p>
+                    </div>
+
+
+                    <!--<div style="font-weight: bold;">
+                        <div  for="rur4" class="col-md-3">Выводить по</div>
+                        <div class="input-group" style="width: 60px;">
+                            <input name="rur4" type="text" class="form-control" style="width: 70px; margin-right: 0; padding-left:10px;" id="rur4" placeholder="введите индекс" ng-model="row" pattern="[0-9-\.]{1,7}" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" style="height: 34px; margin-right: 10px;" ng-click="mongoPaginator.rowsPerPage=row"><span class="glyphicon glyphicon-ok"></span></button>
+                                    </span>
+                            записи.
+                        </div>
+                    </div>-->
+                    <div  style="font-weight: bold; color: #fff;">
+                        <div  for="rur4" >
+                            <p>
+                                <span class="col-md-2" style="padding-top: 5px;">Выводить по</span>
+                                <span class="col-md-2" style="margin-left: -50px;"  name="rur4"    id="rur4" placeholder="введите индекс" ng-model="row" pattern="[0-9-\.]{1,7}" >
+                                    <a ng-class="{'active':mongoPaginator.rowsPerPage==10}" style=" margin-right: 10px; font-size: 22px; float: left" ng-click="mongoPaginator.rowsPerPage=10">10</a>
+                                    <a  ng-class="{'active':mongoPaginator.rowsPerPage==20}"style=" margin-right: 10px; font-size: 22px; float: left" ng-click="mongoPaginator.rowsPerPage=20">20</a>
+                                    <a  ng-class="{'active':mongoPaginator.rowsPerPage==30}"style=" margin-right: 10px; font-size: 22px; float: left" ng-click="mongoPaginator.rowsPerPage=30">30</a>
+                                    <a  ng-class="{'active':mongoPaginator.rowsPerPage==40}"style=" margin-right: 10px; font-size: 22px; float: left" ng-click="mongoPaginator.rowsPerPage=40">40</a>
+                                </span>
+                                <span class="col-md-1" style="padding-top: 5px; margin-left: -30px;">записей.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+
+                    <mongo-paginator></mongo-paginator>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 portfolio-item mb"
+                            ng-class-even="'col-lg-offset-2'"
+
+                         ng-repeat-start="item in newsList|filter:filterLists()| paginate:rowsPerPage">
+
+                        <a ui-sref="language.news.detail({id:item._id})">
+                            <img class="img-responsive" ng-src="{{item.img}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 mb">
+                        <h4 ng-bind="displayDate(item.date)" style="font-size: 16px; color: #444; margin-top: 5px; margin-bottom: 0; line-height: 18px;"> <!--<span ng-bind="item.artikul"></span>--></h4>
+                        <h1 class="nazv" style=" margin-top: 0; margin-bottom: 0; margin-left: 0">
+                            <a ui-sref="language.news.detail({id:item._id})"><span ng-bind="item.name[lang]"></span></a>
+                        </h1>
+
+                        <p><span ng-bind-html="trustHtml(item.desc[lang])"></span><span>...</span></p>
+                        <p class="pull-left" style="font-size: 18px;"><span ng-bind="item.author.name"></span></p>
+                        <a class="btn btn-1 pull-right col-lg-3" ui-sref="language.news.detail({id:item._id})">Смотреть далее</a>
+                        <div class="clearfix"></div>
+                        <hr>
+                    </div>
+
+                    <div class="clearfix" ng-repeat-end></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="paginator">
+            <paginator></paginator>
+        </div>
+        </div>
+</div>
+<div ui-view></div>

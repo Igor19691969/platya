@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="main">
+        <form id="contact" style="padding: 10px;" ng-submit="search()">
+            <div class="row">
+                <input class="col-lg-4 col-md-4 col-sm-6 col-xs-12" type="text" id="contactname"  placeholder="ФИО" data-ng-model="query.fio">
+                <div class="clearfix"></div>
+                <input class="col-lg-4 col-md-4 col-sm-6 col-xs-12"   type="text" id="email"  placeholder="Email" data-ng-model="query.email">
+                <div class="clearfix"></div>
+                <input class="col-lg-4 col-md-4 col-sm-6 col-xs-12"  type="text" id="login"  placeholder="login" data-ng-model="query.name">
+                <div class="clearfix"></div>
+                <button class="btn btn-success" style="width: 150px;">Найти</button>
+            </div>
+        </form>
+        <h3>Users</h3>
+        <div class="row">
+                <table class="table col-lg-12  table-bordered table_ofice" style="font-size: 14px; width: 100%; overflow: auto">
+                    <thead>
+                    <tr>
+                        <th class="col-lg-1">№</th>
+                        <th class="col-lg-1" >name</th>
+                        <th class="col-lg-2" >email</th>
+                        <th class="col-lg-1" >role</th>
+                        <th class="col-lg-1" >Телефон</th>
+                        <th class="col-lg-1" >Страна</th>
+                        <th class="col-lg-1" >Город</th>
+                        <th class="col-lg-2" >ФИО</th>
+                        <th class="col-lg-2" >sub</th>
+                        <th class="col-lg-2" >date</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr ng-repeat="user in list">
+                       <td class="col-lg-1">{{$index+1}}</td>
+                        <td class="col-lg-1">{{user.name}}</td>
+                        <td class="col-lg-2">{{user.email}}</td>
+                        <td class="col-lg-1">{{user.role}}</td>
+                        <td class="col-lg-1">{{user.profile.phone}}</td>
+                        <td class="col-lg-1">{{user.profile.country}}</td>
+                        <td class="col-lg-1">{{user.profile.city}}</td>
+                        <td class="col-lg-2">{{user.profile.fio}}</td>
+                        <td class="col-lg-2">{{user.subscribe?'Да':'нет'}}</td>
+                        <td class="col-lg-2" >{{user.date?moment(user.date).format('MMM Do YY'):'нет'}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+<br />
+<br />
+</div>

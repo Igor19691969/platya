@@ -1,0 +1,35 @@
+ #
+# .gitignore
+#
+
+/.cachebust
+/.git.*/
+/.idea/
+/.gitignore.*
+/.tmp/
+/snapshots/
+/lib.old/
+/app/bower_components/
+/built/
+/app/images/
+/app/img/
+/logs/
+/test/
+/node_modules/
+/npm-debug.log
+/dump/
+/crawling.log
+/errors.log
+/app/all_scripts.manager.min.js
+/app/all_scripts.min.js
+/app/dev_scripts.min.js
+/app/main.manager.min.css
+/app/main.min.css
+/app/scripts.manager.js
+/app/scripts.manager.min.js
+/app/scripts.min.js
+/app/manager.old/
+/app/describe/
+
+
+

@@ -1,0 +1,298 @@
+<div class="bg-content">
+    	<div class="container">
+        	<div class="row">
+				<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12">
+                <h3 ng-hide="Auth.isLoggedIn()" style="font-size: 24px;"> Для изменения личных данных необходимо <a ui-sref="language.login">авторизоваться. </a></h3>
+
+                <form class="form form-horizontal">
+                    	<div class="control-group">
+                        	<label class="control-label main_control-label pull-left">Ваш login</label>
+                            <div class="controls" >
+                                <p ng-bind="user.name"></p>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <label class="control-label main_control-label pull-left">Ваш e-mail</label>
+                            <div class="controls">
+                                <p ng-bind="user.email"></p>
+                            </div>
+                            <div class="clearfix"></div>
+                       </div>
+                   	</form>
+
+
+                    <form class="form">
+                        <div class="row">
+                        <div class="control-group">
+                            <label class="col-lg-4 control-label">Смена пароля</label>
+                            <div class="col-lg-8" >
+                                <button ng-click="profile.changePswdF()" class="btn  btn-danger form-control log"
+                                        ng-disabled="profile.showChangePswd || !user"
+                                        >Сменить пароль</button>
+                            </div>
+                        </div>
+                </div>
+                    </form>
+
+                    <form name="pswdForm" class="form" ng-submit="changePassword()">
+                        <div class="row">
+                        <div class="control-group">
+                            <label class="col-lg-4 control-label">Текущий пароль</label>
+                            <div class="col-lg-8">
+                                <input  class="form-control" ng-disabled="!profile.showChangePswd" type="password"   required placeholder="текущий пароль" pattern="[A-Za-z0-9.%_]{6,40}" ng-model="oldPassword" />
+                            </div>
+
+                            <div  ng-hide="!profile.showChangePswd" ng-show="profile.showChangePswd">
+                                <label class="col-lg-4 control-label">Новый пароль</label>
+                                <div class="col-lg-8">
+                                    <input  class="form-control" type="password"  required placeholder="новый пароль" pattern="[A-Za-z0-9.%_]{6,40}" ng-model="newPassword" />
+                                </div>
+                            </div>
+                            <div   ng-hide="!profile.showChangePswd" ng-show="profile.showChangePswd">
+                                <label class="col-lg-4 control-label">Повторите новый пароль</label>
+                                <div class="col-lg-8">
+                                    <input type="password" class="form-control"  required placeholder="новый пароль" pattern="[A-Za-z0-9.%_]{6,40}" ng-model="newPassword1" pswd-check="newPassword"/>
+                                </div>
+                            </div>
+                            <div class="msg-block controls" ng-show="pswdForm.$error">
+                                <span class="text-error" ng-show="pswdForm.password2.$error.pswdmatch">Пароли не совпадают!</span>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div ng-hide="!profile.showChangePswd" ng-show="profile.showChangePswd">
+                                <label class="col-lg-4 control-label"></label>
+                                <div class="col-lg-8">
+                                    <button class="btn btn-success form-control log">Сохранить</button>
+                                </div>
+                            </div>
+
+
+                            <div ng-show="changePswdSuccess"  class="msg-block">
+                                <span class="pull-left text-error" >Ваш пароль успешно изменен</span>
+                            </div>
+
+                            <div ng-show="changePswdError" class="msg-block">
+                                <span class="pull-left text-error" >Ошибка при смене пароля!</span>
+                            </div>
+                            <div ng-show="changePswdMatch" class="msg-block">
+                                <span class="pull-left text-error"> Пароли не совпадают!</span>
+                            </div>
+
+                        </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                    
+                    <p>Ваши личные данные необходимы для оформления доставки заказа и обратной связи.<br> Пожалуйста, будьте внимательны при заполнениии полей.</br>
+                    Обязательно полностью укажите фамилию, имя и отчество, а также контактный телефон с кодом страны. </p>
+
+
+                    <form class="form" name="formProfile" id="formProfile" ng-submit="profileSave(formProfile)" ng-disabled="!profile.showChangePswd" novalidate>
+
+
+                        <div class="row">
+                            <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Адрес доставки</h5>
+                            <div class="control-group" ng-class="{ 'has-success': formProfile.fio.$valid && submittedProfile,
+                                                  'has-error': formProfile.fio.$invalid && submittedProfile }">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" style="margin-top: 7px;">ФИО </label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
+                                    <input  name="fio" type="text" class="form-control" pattern="[A-Za-zА-Яа-я0-9.\s-]{4,100}"
+                                            ng-model="user.profile.fio"
+
+                                            placeholder="ФИО"/>
+                                            <span class="help-block"  ng-show="formProfile.fio.$error.required && submittedProfile">
+                                                    <!--A name is required-->
+                                                    необходимо указать ФИО
+                                            </span>
+                                    <span class="help-block"          ng-show="formProfile.fio.$error.minlength && submittedProfile">
+                                                    <!--A name is required-->
+                                                    не менее 10-х символов
+                                            </span>
+
+                                            <span class="help-block"  ng-show="formProfile.fio.$error.maxlength && submittedProfile">
+                                                    <!--A name is required-->
+                                                     не более 70-х символов
+                                            </span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="control-group">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" style="margin-top: 7px;">Телефон</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                    <input   type="text" class="form-control" pattern="[0-9.\s-+()]{0,40}"  ng-model="user.profile.phone" placeholder="Телефон"/>
+
+                                </div>
+
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" style="margin-top: 7px;">Индекс</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" class="form-control"pattern="[0-9-]{0,10}"  placeholder="Индекс" ng-model="user.profile.zip"/>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group" ng-class="{ 'has-success': formProfile.cityId.$valid && submittedProfile,
+                                                  'has-error': formProfile.cityId.$invalid && submittedProfile }">
+                                <input name="cityId"  data-ng-model="user.profile.cityId" type="hidden">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" style="margin-top: 7px;"for="Autocomplete2">Город</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                    <input type="text" id="Autocomplete2" ng-model="user.profile.city" class="form-control"
+                                           ng-autocomplete1 options="city.options" details="city.details"
+                                           city-id="user.profile.cityId" country-id="user.profile.countryId"/>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="control-group">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" style="margin-top: 7px;">Улица дом кв</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                    <input   type="text" class="form-control" pattern="[0-9A-Za-zА-Яа-я.,/\s-]{0,100}" ng-model="user.profile.address" placeholder="Улица дом кв"/>
+
+                                </div>
+
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 control-label"></label>
+                                <div class="col-lg-8">
+                                    <button class="btn btn-success form-control" type="submit" ng-disabled="disableButtonSave || !user">Сохранить</button>
+                                </div>
+                            </div>
+
+                            <div ng-hide="!showUpdateSuccess" ng-show="showUpdateSuccess" class="msg-block main_controls controls">
+                                <h1 class=" nazv text-center" >Ваш профиль успешно изменен</h1>
+                            </div>
+
+                        </div>
+
+
+
+                    </form>
+
+
+
+
+
+                    <form class="form " name="formRegistaration1" ng-submit="profileSave11()" ng-disabled="!profile.showChangePswd" >
+                        <!--<div class="row">
+						<input type="hidden" ng-model="formReg.lang">
+                            <div>
+                                <span id="error_registration"></span>&nbsp;
+                            </div>-->
+                            
+                            <!--<div class="control-group">
+                                <label class="col-lg-4 control-label">ФИО</label>
+                                <div class="col-lg-8">
+                                    <input   type="text" class="form-control" pattern="[A-Za-zА-Яа-я0-9.\s-]{4,100}" required placeholder="ФИО" ng-model="user.profile.fio"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 control-label">Телефон</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"  placeholder="телефон" pattern="[0-9.\s-+()]{0,40}" ng-model="user.profile.phone"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 control-label">Идекс</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"  placeholder="индекс" pattern="[0-9-]{0,10}" ng-model="user.profile.zip"/>
+                                    
+                                </div>
+                            </div>-->
+                            <!--<div class="control-group">
+                                <label class="col-lg-4 control-label">Страна</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" required placeholder="страна" pattern="[A-Za-zА-Яа-я.,\s-]{5,100}" ng-model="user.profile.country"/>
+                                </div>
+                                
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 control-label">Регион</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"  placeholder="регион" pattern="[A-Za-zА-Яа-я.,\s-]{5,100}" ng-model="user.profile.region"/>
+                                </div>
+                                
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 control-label">Город</label>
+                                <div class="col-lg-8">
+                                   <input type="text" class="form-control"  required pattern="[A-Za-zА-Яа-я.\s-]{5,100}" placeholder="город" ng-model="user.profile.city"/>
+                                </div>
+                                
+                            </div>-->
+                        <!--<div class="form-group" ng-class="{ 'has-success': form.country.$valid && submitted,
+                                                  'has-error': form.name.$invalid && submitted }" >
+                            <label class="col-lg-4 control-label" for="country" style="margin-top: 10px;">
+                                Cтрана
+                            </label>
+                            <div class="col-lg-8">
+                                <select ng-model="countryId" ui-select2  required ng-change="countryIdChange(countryId)" id="country">
+                                    <option value="">Выберите страну</option>
+                                    <option ng-repeat="countryScope in countries" value="{{countryScope.id}}" >{{countryScope.title}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-success': form.country.$valid && submitted,
+                                                  'has-error': form.name.$invalid && submitted }" >
+                            <label class="col-lg-4 control-label" style="margin-top: 10px;">Регион</label>
+                            <div class="col-lg-8">
+                                <select ng-model="regionId" ui-select2 ng-change="regionIdChange(regionId)" ng-disabled="!regions.length">
+                                    <option value="">Выберите регион</option>
+                                    <option ng-repeat="region in regions" value="{{region.id}}" >{{region.title}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group " ng-class="{ 'has-success': form.country.$valid && submitted,
+                                                  'has-error': form.name.$invalid && submitted }" >
+                            <label class="col-lg-4 control-label" style="margin-top: 10px;">Город</label>
+                            <div class="col-lg-8">
+                                <select ng-model="cityId" ui-select2 ng-disabled="!cities.length" required ng-change="getNameCity(cityId)">
+                                    <option value="">Выберите город</option>
+                                    <option ng-repeat="city in cities" value="{{city.city_id}}" >{{city.title}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+-->
+
+
+                            <!--<div class="control-group">
+                                <label class="col-lg-4 control-label">Улица дом кв</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control"   pattern="[0-9A-Za-zА-Яа-я.,/\s-]{5,100}" placeholder="улица дом кв" ng-model="user.profile.city"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="col-lg-4 control-label"></label>
+                                <div class="col-lg-8">
+                                    <button class="btn btn-success form-control" type="submit" ng-disabled="disableButtonSave">Сохранить</button>
+                                </div>
+                            </div>
+
+                             
+                            <div ng-hide="!showUpdateSuccess" ng-show="showUpdateSuccess" class="msg-block main_controls controls">
+                                <h1 class=" nazv text-center" >Ваш профиль успешно изменен</h1>
+                            </div>
+                            <div ng-hide="!showUpdateError" ng-show="showUpdateError" class="msg-block main_controls controls text-center">
+                                <h1 class="nazv text-center" style="color: #b00058;" >Ошибка при смене профиля</h1>
+                            </div>
+                </div>-->
+      				</form>
+                
+               		<div class="clear"></div>
+               	</div>
+            </div> 
+		</div><!--container-->
+</div>

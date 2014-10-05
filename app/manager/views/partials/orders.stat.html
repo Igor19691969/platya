@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="main">
+        <h3>статистика заказов</h3>
+
+        <div class="row">
+
+            <article class="col-lg-12 col-md-12" >
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <h4 class="col-lg-2">с</h4>
+                        <p class="input-group datepicker col-lg-10">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtfrom" is-open="openedfrom" min-date="minDate" max-date="today()" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openfrom($event)" style="height: 35px;"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="col-lg-2">по</h4>
+                        <p class="input-group datepicker col-lg-10">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtto" is-open="openedto" min-date="dtfrom" max-date="today()" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="opento($event)" style="height: 35px;"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+
+                        <!--<div class="form-group">
+
+                                <!-- class="col-md-5 text-left" style="margin-left: 20px;">
+                                    <input type="text" placeholder="пошук" ng-model="searchStuff" class="search-query"/>
+                                </div>-->
+                                    <!--<div class="col-md-5  col-md-offset-1">-->
+                                        <a class="btn btn-success" type="button" style="margin-top: 10px;"  ng-click="getList()">создать список</a>
+                                    <!--</div>
+
+                            </div>-->
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 text-left">
+                                <input type="text" placeholder="не менее" ng-model="q" class="search-query col-lg-5 col-md-5 col-sm-5 col-xs-12"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 text-left">
+                                <input type="text" placeholder="поиск" ng-model="searchStuff" class="search-query col-lg-5 col-md-5 col-sm-5 col-xs-12"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-10 col-md-10">
+                        <table class="table span12 table-striped table-bordered table_ofice">
+
+                            <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Дата первого заказа</th>
+                                <th>Модель</th>
+                                <th>цвет</th>
+                                <th>размер</th>
+                                <th>К-во единиц</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in endList">
+                               <!-- filter:{'name':searchStuff}">-->
+
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="moment(item.date).format('lll')"></td>
+                                    <td ng-bind="item.name"></td>
+                                    <td ng-bind="item.colorName"></td>
+                                    <td ng-bind="item.sizeName"></td>
+                                    <td ng-bind="item.quantity"></td>
+
+                                </tr>
+                            </tbody>
+                            <tbody class="cart-item-total">
+                            <tr>
+                                <td></td>
+                                <td>Итого</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td class="text-center" ng-bind="totalQuantity"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+            </article>
+        </div>
+
+    </div>
+    <br />
+    <br />
+</div>

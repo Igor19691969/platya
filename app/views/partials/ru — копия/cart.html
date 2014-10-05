@@ -1,0 +1,195 @@
+<style>
+        /*.cart-item-center{
+          text-align: center !important;
+          cursor: pointer;
+        }
+
+        .cart-item-total {
+          font-weight: bold;
+          background-color: #DDD;
+        }*/
+    th a {cursor:pointer}
+</style>
+
+<div class="bg-content">
+<!--============================== content =================================-->
+<div id="content">
+<div class="ic"></div>
+<div class="container">
+<div class="row">
+    <h3 class="slogan cursor_default span12"><strong>В настоящее время заказ по оптовым ценам можно оформить от <span style="font-size: 20px;"> 5 штук</span> для Украины и от <span style="font-size: 20px;">10 штук</span> для России.</strong></h3>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-bordered table_bag">
+                <thead>
+                <tr>
+                    <th class="col-lg-1">
+                        #
+                    </th>
+                    <th class="col-lg-1">
+                        Товар
+                    </th>
+                    <th class="col-lg-3" title="сортировать по алфавиту">
+                        <a ng-click="setSortProperty('name')">Артикул</a>
+                    </th>
+                    <th class="col-lg-1" title="сортировать по размеру" >
+                        <a ng-click="setSortProperty('size')">
+                            Размер
+                        </a>
+                    </th>
+
+                    <th class="col-lg-1" title="сортировать по возрастанию">
+                        <!--<select  class="col-lg-2" ng-model="curren.current"
+                                >
+                            <option ng-hide="countryRUB" value="UAH"><img class="vw"src="img/icon/uah.png">UAH</option>
+                            <option ng-hide="countryUAH" value="RUB"> <img class="vw"src="img/icon/rub.png">RUB</option>
+                            <option ng-hide="countryUAH" value="USD"><img class="vw"src="img/icon/usd.png">USD</option>
+                            &lt;!&ndash;<li><a href="#"><img class="vw" src="img//icon/euro.png" >EUR</a></li>&ndash;&gt;
+                        </select>-->
+                        <!--<a ng-click="setSortProperty('price')">
+                            Цена
+                        </a>-->
+                        Цена&nbsp{{currency}}
+                    </th>
+
+                    <th class="col-lg-2" title="сортировать по количеству">
+                        <a ng-click="setSortProperty('quantity')">
+                            Количество
+                        </a>
+                    </th>
+
+                    <th class="col-lg-2">
+                        Стоимость
+                    </th>
+
+                    <th class="col-lg-1 cart-item-center">
+                        Удалить
+                    </th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="good in cart.list()|orderBy:sortProperty">
+                <tr >
+                    <td class="col-lg-1">
+                        {{$index+1}}
+                    </td>
+                    <td class="col-lg-1">
+                        <a  ng-click="goToItem({brandUrl:good.gg,urlGood:good.url,color:good.imgUrl,size:good.size})">
+                            <img class="span1 pull-left" ng-src="{{good.img}}"/></a>
+                    </td>
+                    <td class="col-lg-3">
+                        <a class="black"ng-click="goToStuff($index)">{{good.name}} {{good.colorName}}</a>
+                    </td>
+
+                    <td class="col-lg-1">
+                        <a class="black"ng-click="goToStuff($index)">{{good.sizeName}}</a>
+                    </td>
+                    <td class="col-lg-1">
+
+                        <!--{{divider*good.price*curren[curren.current][0]| currency:curren[curren.current][2]}}-->
+                        {{(kurs*(price =(cart.cartCount()>=5)?good.price:good.retail)).toFixed(2)}}
+
+                    </td>
+                    <td class="col-lg-2">
+                        <div class=" pull-left right-filters" style="margin-left: 20px;">
+                            <!--<input type="text" class="input-small spinner-input" ng-model="good.quantity">
+                            <div class="clearfix"></div>
+                            <div class="spinner-buttons btn-group btn-group-vertical">
+
+                                <button class="btn spinner-up" type="button" ng-click="quantityDown(good)">
+                                    <i class="icon-minus"></i>
+                                </button>
+                                <button class="btn spinner-down" type="button" ng-click="quantityUp(good)">
+                                    <i class="icon-plus"></i>
+                                </button>
+                            </div>-->
+                            <div class=" pull-left right-filters">
+                                <select class="btn btn-color mb" ng-model="good.quantity" ng-change="cart.save()">
+                                    <option ng-repeat="opt in quantityArr" ng-value="opt" >{{opt}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <!--<input value="1" style="width: 30px;">-->
+                    </td>
+                    <td class="col-lg-2">
+                       {{(kurs*price*good.quantity).toFixed(2)}}&nbsp{{currency}}
+                    </td>
+                    <td  class="col-lg-1 cart-item-center" ng-click="cart.removeItem($index)">
+                        <i class="glyphicon glyphicon-remove cursor_pointer"></i>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody class="cart-item-total">
+                <tr>
+                    <td></td>
+                    <td>Итого</td>
+                    <td></td><td></td><td></td>
+                    <td>{{cart.quantity=cart.cartCount()}}</td>
+                    <td>{{(kurs*(cart.sum=cart.getTotalSum())).toFixed(2)}}&nbsp{{currency}}</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <li>
+            <button class="btn btn-inverse btn-large mb2 pull-right"   ng-click="cart.clearCart()">Очистить корзину</button>
+        </li>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mb2 cursor_default">
+            <span class="col-lg-4  adress_title"><i class="icon-home icon-white pull-left mr"></i>Адрес доставки</span>
+            <div class="clear"></div>
+            <p class=" pull-left mt mb adress">
+                <label>
+                <input pattern="[A-Za-zА-Яа-я.,\s-]{5,100}" ng-disabled="!user._id"type="text" class="mr" style="background-color:#333; border-color:#333; color:#CCC" ng-model="user.profile.fio"> ФИО</label><br>
+                <label>
+                    <input pattern="[0-9.\s-+()]{7,40}" ng-disabled="!user._id"type="text" class="mr" style="background-color:#333; border-color:#333; color:#CCC" ng-model="user.profile.phone">Телефон</label><br>
+                <input pattern="[0-9-]{2,10}"ng-disabled="!user._id"type="text" class="mr" style="background-color:#333; border-color:#333; color:#CCC" ng-model="user.profile.zip">индекс<br />
+                <input pattern="[A-Za-zА-Яа-я.,\s-]{5,100}"ng-disabled="!user._id"type="text" class="mr" style="background-color:#333; border-color:#333; color:#CCC" ng-model="user.profile.region">регион<br />
+                <input pattern="[A-Za-zА-Яа-я.,\s-]{5,100}"ng-disabled="!user._id"type="text" class="mr" style="background-color:#333; border-color:#333; color:#CCC" ng-model="user.profile.city">город<br />
+                <input pattern="[0-9A-Za-zА-Яа-я.,/\s-]{5,100}"ng-disabled="!user._id"type="text" class="mr" style="background-color:#333; border-color:#333; color:#CCC" ng-model="user.profile.address">улица дом кв.
+            </p>
+        </div>
+        <textarea rows="7"  class="pull-right span4" ng-model="comment" placeholder="Ваши комментарии к заказу" ></textarea>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="container">
+    <div class=" row">
+        <ul class="black col-lg-12 col-md-12 col-sm-12 col-xs-12">
+           <li ng-hide="user._id">
+                <button type="submit" class=" btn btn-inverse btn-large mb pull-left" ng-click="$state.transitionTo('language.signIn',{lang:$stateParams.lang})">Авторизация</button>
+            </li>
+            <li class="col-lg-7 alert  fade in main_danger1 ml0" ng-show="showLoginMessage">
+                <p >Проверьте имя пользователя или пароль!</p>
+            </li>
+            <li class="col-lg-7 alert  fade in main_danger1 ml0" ng-show="errorCount">
+
+                <p>Ваш заказ не отправлен!<br> Количество единиц заказа менее 5 штук.</p>
+            </li>
+            <li class="col-lg-7 alert  fade in main_danger1 ml0"  ng-show="errorSigned">
+
+                <p>Ваш заказ не отправлен! <br>Вам необходимо авторизоваться.</p>
+            </li>
+            <li class="col-lg-7 alert  fade in main_success1 ml0"  ng-show="successOrder">
+                <p>Ваш заказ принят. <br> С Вами свяжется менеджер.</p>
+            </li>
+            <li class="col-lg-7 alert  fade in main_danger1 ml0"  ng-show="errorOrder">
+                <p>Извините, Ваш заказ не отправлен. <br> Повторите попытку через 5 сек.</p>
+            </li>
+            <li class="pull-right">
+                <button class="btn btn-danger btn-large mb pull-right"  ng-click="sendOrder()" ng-disabled="sendDisabled">Отправить заказ</button>
+            </li>
+        </ul>
+    </div><!--row-->
+</div><!--container-->
+</div><!--content-->
+</div><!--bg-content-->

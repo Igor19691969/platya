@@ -1,0 +1,16 @@
+<div class="row">
+    <h1>{{content.title}}<small> by {{content.author.name}}</small></h1>
+    <p>{{content.description}}</p>
+</div>
+<div class="row">
+    <ul class="thumbnails">
+
+        <li ng-repeat="item in content.elements" class="col-lg-3">
+            <a class="thumbnail" href="{{item.permalink}}" target="_blank">
+                <img src="{{item.data.image.src}}" title="{{item.data.image.caption}}" />
+            </a>
+        </li>
+
+    </ul>
+</div>
+</body>

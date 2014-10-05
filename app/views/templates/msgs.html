@@ -1,0 +1,6 @@
+<input class="pull-right" type="checkbox" ng-show="button.editChat" ng-model="deleteMsgs[message._id]">
+<span class="chat_date" ng-bind="displayDate(message.date,true)" ng-class="{'pull-right':message.class}"></span></br>
+<span class="chat-message" ng-bind="message.name" ng-class="{'pull-right':message.class}"></span></br>
+
+<span ng-bind-html="message.msg"></span>
+

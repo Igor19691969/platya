@@ -1,0 +1,27 @@
+!!!
+html(ng-app="myApp")
+  head
+    meta(charset='utf8')
+    base(href='/')
+    title(ng-bind="titles.pageTitle")
+    meta(name="keywords",content="{{titles.pageKeyWords}}")
+    meta(name="description",content="{{titles.pageDescription}}")
+    meta(name="author",content="Your name")
+    meta(name="fragment",content="!")
+    meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    meta(name="google-site-verification",content="t9n9a5XL2AEpx-VPw9g_Tp1aI6sUiS6FSXZyB5NHzZo")
+
+
+    link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="bower_components/select2/select2.css")
+    link(rel='stylesheet', href='/styles/superfish.css')
+    link(rel='stylesheet', href='/styles/responsive.css')
+    link(rel='stylesheet', href='scripts/dev/elastislide/css/elastislide.css')
+    link(rel='stylesheet', href='/styles/style.css')
+    link(rel='stylesheet', href='/styles/docs.css')
+    link(rel='stylesheet', href='/styles/slide.css')
+    link(rel='stylesheet', href='/styles/dialogs.css')
+
+
+  body
+    block body

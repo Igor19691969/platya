@@ -1,0 +1,120 @@
+<style>
+
+</style>
+<div class="bg-content">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-12" style="margin-top: 40px;">
+            <!--<div class="overflowable">
+                <h3> Users</h3>
+                <p ng-repeat='user in listUsers'><a data-ng-click="addChat(user)">
+                    <span ng-bind="user.name" ng-hide="user._id==$parent.user._id"></span></a></p>
+            </div>-->
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
+                    <div class="users col-lg-4 col-md-4 col-sm-4 col-xs-4 mb" data-ng-show="user.role=='admin'">
+
+                        <div class="chat_head">
+                            <h3 >Пользователи</h3>
+                        </div>
+                        <select ui-select2  data-placeholder="добавить в список чатов"  ng-model="selectedUser">
+                            <option value="">добавить в список чатов</option>
+                            <option ng-repeat="User in listUsers" ng-value="User._id" data-ng-hide="User._id==user._id">{{User.name}}</option>
+                        </select>
+
+                        <!--<div class="overflowable" style=" padding: 10px;">
+                            <p ng-repeat='user in listUsers|filter:filterUser'><a data-ng-click="addChat(user)">
+                                <span ng-bind="user.name" ng-hide="user._id==$parent.user._id"></span></a>&lt;!&ndash;<input class="pull-right" type="checkbox">&ndash;&gt;
+                            </p>
+                        </div>
+
+                        <div class="input-group search pull-right col-lg-4">
+                            <input  type="text" class="form-control search1" ng-model="filterUser" placeholder="поиск по имени"">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-search icon-white"></span> </button>
+                                </span>
+                        </div>-->
+                        <!--<div style="margin-top: 10px;">
+                            <a class="btn btn-danger pull-right"> <span class="glyphicon glyphicon-trash"></span></a>
+                        </div>-->
+                    </div>
+
+
+                    <div class="chat_content col-lg-8 col-md-8 col-sm-8 col-xs-8 mb">
+                        <div data-ng-show="user.role=='admin' && activeChat._id">
+                                <a class="btn btn-danger pull-right" data-ng-click="button.editChat=!button.editChat"> <span class="glyphicon glyphicon-cog"></span></a>
+                                <a class="btn btn-danger pull-right" data-ng-click="deleteMsgs()" ng-show="button.editChat"> <span class="glyphicon glyphicon-trash"></span></a>
+                                <input ng-show="button.editChat" class="pull-right" type="checkbox" style="margin-top: 9px;" ng-model="deleteAll">
+
+                        </div>
+                        <div class="chat_head">
+                            <h3 >Чат с
+                                <span ng-bind="activeChat.name" class="color_summer"></span>
+                                <span ng-hide="activeChat.name" class="pull-right">(выберите чат)
+                                    <span style="margin-left: 10px;" class=" glyphicon glyphicon-arrow-right"></span></span>
+                            </h3>
+                        </div>
+                        <select ui-select2  data-placeholder="Pick a number"  ng-model="selectedChat" ng-disabled="!socket.socket.socket.connected">
+                            <option value="">выбрать чат</option>
+                            <option ng-repeat="chat in chatList" ng-value="chat._id" data-ng-hide="chat._id==user._id">{{chat.name}}</option>
+                        </select>
+                        <div class="overflowable clearfix " id="divElem">
+
+                            <ul style="padding: 15px;" >
+                                <li ng-repeat='message in msgs' scroll-if="{{$index == (msgs.length-1)}}"  ng-class="{'chat_user1':message.class,'chat_user2':!message.class}">
+                                    <input class="pull-right" type="checkbox" ng-show="button.editChat" ng-model="deleteMsgs[message._id]">
+                                    <span class="chat_date" ng-bind="displayDate(message.date,true)" ng-class="{'pull-right':message.class}"></span></br>
+                                    <span class="chat-message" ng-bind="message.name" ng-class="{'pull-right':message.class}"></span></br>
+                                    <span ng-bind-html="trustHtml(message.msg)"></span>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <form  name="myForm" class="form-horizontal"data-ng-submit="sendMsg(msg)">
+                            <textarea   ng-model="msg" class="chat_text mb" ng-disabled="!sendMsgBtn" id="myinput">
+
+                            </textarea>
+                            <button type="submit" class="btn btn-danger btn-chat" ng-disabled="!sendMsgBtn || !activeChat._id">
+                                <span>Отправить<br>сообщение</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4  col-md-4 col-sm-4 col-xs-12">
+                    <div class="users">
+                        <div class="chat_head">
+                            <h3 style="margin-right: 15px; margin-left: 15px">Выбор чата</h3>
+                        </div>
+                    <!--<p ng-repeat='message in messages'> {{message.user}}: {{message.text}}</p>-->
+                        <div class="overflowable " style="margin-right: 15px; margin-left: 15px">
+                            <p ng-repeat='user in chatList|filter:filterChat' style="padding: 15px;">
+                                <a data-ng-click="changeChat(user)">
+                                <span ng-bind="user.name" ng-hide="user._id==$parent.user._id" style="font-weight: bolder; margin-right: 5px;"></span>
+                                    <span data-ng-show="user.newMsg" class="badge badge-success" style="margin-right: 3px; margin-top: 3px; margin-left: 0;">{{user.newMsg}}</span>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="input-group search pull-right col-lg-4" style="margin-right: 15px;">
+                            <input  type="text" class="form-control search2" ng-model="filterChat" placeholder="поиск по имени">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-search icon-white"></span> </button>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+        </div>
+        <div class="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+
+        </div>
+    </div>
+
+</div>
+</div>

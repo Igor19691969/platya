@@ -1,0 +1,135 @@
+<div class="container">
+<div class="main">
+    <h3>Архив заказов</h3>
+
+    <div class="row">
+
+        <article class="col-lg-12 col-md-12" >
+
+
+            <table class="table span12 table-striped table-bordered table_ofice">
+
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th><a href="#" style="color: #fff">Дата посту-пления</a></th>
+                    <th ><a href="#" style="color: #fff">Дата оплаты</a></th>
+                    <th><a href="#" style="color: #fff">Дата отправки</a></th>
+                    <th><a href="#" style="color: #fff">Дата доставки</a></th>
+                    <th>К-во единиц</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Удалить</th>
+
+                </tr>
+                </thead>
+                <tbody ng-repeat="order in orders|filter:{num:filterNumber,status:filterStatus}" class="my-repeat-animation">
+                <tr id="{{order._id}}">
+                    <td ng-bind="order.num"> </td>
+                    <td> <a  ng-click="order.showdetail=!order.showdetail"class="black" ng-bind="dateConvert(order.date)"></a> </td>
+                    <td> <a  ng-click="order.showdetail=!order.showdetail"class="black" ng-bind="dateConvert(order.date1)"></a> </td>
+                    <td> <a  ng-click="order.showdetail=!order.showdetail"class="black" ng-bind="dateConvert(order.date2)"></a> </td>
+                    <td> <a  ng-click="order.showdetail=!order.showdetail"class="black" ng-bind="dateConvert(order.date3)"></a> </td>
+
+                    <td class=" text-center" ng-bind="order.quantity"> </td>
+                    <td>{{order.sum*order.kurs}}&nbsp{{order.currency}}</td>
+                    <td class="text-center">
+                        {{order.status}}
+
+                    </td>
+                    <td class=" text-center">
+                        <a class="btn btn_ok" ng-click="deleteOrder(order)"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+
+                </tr>
+                <tr  ng-switch="order.showdetail">
+                    <td ng-switch-when="true" colspan="9" style="background-color:#ccbcc0; padding:5; border:none;">
+                        <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table table-bordered table_bag">
+                            <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Товар
+                                </th>
+                                <th>
+                                    Наименование
+                                </th>
+                                <th>
+                                    Артикул
+                                </th>
+                                <th>
+                                     Размер
+                                </th>
+
+                                <th>
+                                     Цена
+                                </th>
+
+                                <th>
+                                    Количество
+                                </th>
+
+                                <th>
+                                    Стоимость
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody ng-repeat="good in order.cart">
+                            <tr >
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                        <img style="max-width: 50px" class="span1 pull-left" ng-src="{{good.img}}"/>
+                                </td>
+                                <td>
+                                    <a class="black">{{good.name}} {{good.colorName}}</a>
+                                </td>
+                                <td>
+                                    <span ng-bind="good.artikul"></span>
+                                </td>
+
+                                <td class="text-center">
+                                    <a class="black">{{good.sizeName}}</a>
+                                </td>
+                                <td>
+                                    {{ ( order.kurs*(price=(order.quantity>=5)?good.price:good.retail) ).toFixed(2) }}&nbsp{{order.currency}}
+                                </td>
+                                <td class="text-center">
+                                    {{good.quantity}}
+                                </td>
+                                <td>
+                                    {{ ( order.kurs*price*good.quantity).toFixed(2) }}&nbsp{{order.currency}}
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tbody class="cart-item-total">
+                            <tr>
+                                <td></td>
+                                <td>Итого</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">{{order.quantity}}</td>
+                                <td>{{ order.kurs*order.sum }}&nbsp{{order.currency}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </article>
+    </div>
+
+</div>
+<br />
+<br />
+</div>

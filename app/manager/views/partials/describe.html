@@ -1,0 +1,68 @@
+<div class="container" ng-hide="$state.includes('mainFrame.describe.edit')">
+    <div class="main">
+        <div class="row">
+              <div class="col-sm-7 col-md-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" style="font-family: Times New Roman, Times, serif; font-weight: bold">Рассылки</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="col-md-5 text-left" style="margin-left: 20px;">
+                                            <input type="text" placeholder="поиск" ng-model="searchItem" class="search-query"/>
+                                        </div>
+                                        <div class="col-md-5  col-md-offset-1">
+                                            <a href=""class="btn btn-success" type="button"  ng-click="editItem()">создать рассылку</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div style="font-weight: bold;">
+                                <div  for="rur4" class="col-md-3">Выводить по</div>
+                                <div class="input-group" style="width: 60px;">
+                                    <input name="rur4" type="text" class="form-control" style="width: 70px; margin-right: 0; padding-left:10px;" id="rur4" placeholder="введите индекс" ng-model="row" pattern="[0-9-\.]{1,7}" >
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" style="height: 34px; margin-right: 10px;" ng-click="mongoPaginator.rowsPerPage=row"><span class="glyphicon glyphicon-ok"></span></button>
+                                    </span>
+                                    записей.
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+
+                            <mongo-paginator></mongo-paginator>
+
+
+
+                                <ul  class="nav nav-pills nav-stacked">
+                                    <li
+                                        class="pull-left col-lg-12 col-md-10 col-xs-10"
+                                        ng-repeat="item in filteredList=(list|orderBy:'-date'|filter:searchItem)">
+                                        <a ng-click="editItem(item)" class="control-label col-lg-6 col-md-6 col-xs-6" href="">
+                                            <span ng-bind="item.name"></span>
+                                        </a>
+                                        <div class="col-lg-6 btn-group">
+                                            <a ng-click="editItem(item)" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                            <a ng-click="deleteItem(item)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span> </a>
+                                            <a ng-click="preview(item)" class="btn btn-sm btn-success"><span>preview</span> </a>
+                                            <a ng-click="sendDescribe(item)" class="btn btn-sm btn-success"><span>send</span> </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+
+
+                            <div ng-show="filteredList.length<=0" class="alert alert-success"><h3>Нет объектов</h3></div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<div ui-view></div>

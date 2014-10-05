@@ -1,0 +1,6 @@
+# robot.txt for site
+# Do not delete this file
+
+User-agent: *
+Disallow: /manager/
+Sitemap: http://jadone.biz/sitemap.xml

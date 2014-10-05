@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="main">
+        <div class="row">
+            <article class="col-lg-8 col-md-8 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="form-group">
+                            <label  >основная валюта <span>ГРИВНА</span></label>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal"ng-submit="updateCurrency()" name="myForm">
+                            <div class="form-group">
+                               <label  for="rur" class="col-md-6 control-label">Введите курс рубля</label>
+                                <div class="col-md-6">
+                                    <input name="rur" type="text" class="form-control" id="rur" placeholder="введите курс рубля" ng-model="config.currency['RUB'][0]" pattern="[0-9-\.]{1,5}" required>
+                                    <span ng-show="myForm.rur.$error.pattern">What?! Fucking buster!</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="usd" class="col-md-6 control-label">Введите курс доллара</label>
+                                <div class="col-md-6">
+                                    <input  type="text" class="form-control" id="usd" placeholder="введите курс доллара" ng-model="config.currency['USD'][0]" pattern="[0-9-\.]{1,8}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="opt" class="col-md-6 control-label">e-mail для опта UA</label>
+                                <div class="col-md-6">
+                                    <input  type="email" class="form-control" id="optUA" placeholder="Email для опта UA" ng-model="config.email.optUA"  required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="opt" class="col-md-6 control-label">e-mail для опта</label>
+                                <div class="col-md-6">
+                                    <input  type="email" class="form-control" id="opt" placeholder="Email для опта" ng-model="config.email.opt"  required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="retail" class="col-md-6 control-label">e-mail для розницы</label>
+                                <div class="col-md-6">
+                                    <input  type="email" class="form-control" id="retail" placeholder="Email для розницы" ng-model="config.email.retail"  required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-6">
+                                    <button  type="submit" class="btn btn-large btn-info save mt40" ng-disabled="disabledButton">сохранить</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <div class="alert alert-success" ng-show="showMessage">
+                            <a  class="close" data-dismiss="alert">&times;</a>
+                            <strong>Обновлено!</strong>
+                        </div>
+
+                        <!--<form name="LovelyForm">
+                            <input type="text" name="LovelyMimimi" placeholder="mimimi" ng-model="mimimi" mimimi/>
+                            <span ng-show="LovelyForm.LovelyMimimi.$error.mimimi">Mimimi, please</span>
+                            <span>{{mimimi}}</span>
+                        </form>-->
+
+                       <!-- <div  ng-show="showMessage">
+
+                            <p style="font-size: 18px;" class="bg-success">Курсы обновлены!</p>
+                        </div>-->
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+    </div>
+</div>
+

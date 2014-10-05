@@ -1,0 +1,46 @@
+<div class="myslider">
+    <div class="myslide" ng-repeat="image in images" ng-show="image.visible">
+        <a ui-sref="language.stuff({lang:image.lang,category:image.url,section:'category'})" class="text-center">
+        <img class="img-responsive" ng-src="{{image.img}}"/>
+        <!--<ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+
+            </li>
+
+        </ol>-->
+
+
+            <!--<h1 class="nazv" style="position: absolute; bottom: 0px; left: 35%; color: #8a5f78; font-size: 48px; line-height: 28px; opacity: 0.7; background: #fff;
+    background: -moz-radial-gradient(center, farthest-side, #eee 80%, transparent);
+    background: -webkit-radial-gradient(center, farthest-side, #eee 80%, transparent);
+    background: -o-radial-gradient(center, farthest-side, #eee 80%,transparent);
+    background: -ms-radial-gradient(center, farthest-side, #eee 80%,transparent);
+    background: radial-gradient(center, farthest-side, #eee 80%,transparent);
+    padding: 30px 80px; " >-->
+                <h1 class="nazv home_slider" >
+                <span ng-bind="image.name"></span><span class="fashion" > oт Jadone Fashion</span><br>
+                <span class="go">перейти в каталог</span>
+            </h1>
+
+        </a>
+       <!-- <a ui-sref="language.stuff({lang:image.lang,category:image.url,section:'category'})"><img ng-src="{{image.img}}" /></a>-->
+
+    </div>
+
+    <!--<ol class="carousel-indicators" style="bottom: 0px;">
+        <a ng-click="pick($index)" ng-repeat="aaa in images"><li data-target="#carousel-example-generic" data-slide-to="0" ng-class="{'active':$index==currentIndex}" >
+
+            </li> </a>
+
+    </ol>-->
+
+
+    <!--<div class="arrows">
+        <a href="#" ng-click="prev()">
+            <img src="img/left-arrow.png" />
+        </a>
+        <a href="#" ng-click="next()">
+            <img src="img/right-arrow.png" />
+        </a>
+    </div>-->
+</div>

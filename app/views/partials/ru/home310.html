@@ -1,0 +1,84 @@
+<div class="bg-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                    <myslider images="images" />
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="block-slogan">
+                    <h2>Мои СТИЛИ</h2>
+                    <div>
+
+                        <p  class="slogan"><span><strong>Jadone Fashion</strong> - это яркая , стильная и ультрамодная женская одежда от современных дизайнеров. Необычное и лёгкое смешение стилей позволит Вам подобрать именно свой образ. Модная дизайнерская одежда марки Jadone Fashion превратит девушку в стильную супер модель.Оригинальное сочетание тканей, ярких цветов и фактур с элементами декора придутся по вкусу любой моднице. Уникальность и неповторимость каждой модели позволит Вам выделится в огромном мегаполисе современных модных тенденций. Одежда марки Jadone Fashion поможет Вам окружить себя ореолом стиля и вкуса.
+Jadone, в которой ты - Fashion !  <br>Оптовые цены действуют при заказе для Украины - от <span class="text-error">5 штук</span>, для России - от <span class="text-error">10 штук.</span></span></p>
+                    </div>
+                </div><!--block-slogan-->
+            </div><!--span12-->
+        </div><!--row-->
+
+    </div>
+
+    <!--============================== content =================================-->
+
+    <div id="content">
+        <div class="ic"></div>
+        <div class="row-1">
+            <div class="container content-extra">
+                <div class="row">
+                    <ul class="thumbnails thumbnails-1">
+
+                        <li class="span3" ng-repeat="collection in collections">
+                            <div class="thumbnail thumbnail-1">
+                                <a ui-sref="language.tovaryi.brand.list({brandUrl:'gg-'+collection.id})">
+
+                                    <img ng-src="{{collection.img}}" alt=""></a>
+                                <section>
+                                    <a ui-sref="language.tovaryi.brand.list({brandUrl:'gg-'+collection.id})" style="text-decoration: none;">
+                                        <strong ng-bind="collection.name"></strong><a/>
+                                        <p ng-bind="collection.descr|cut:true:50:'...'"></p>
+                                        <a ui-sref="language.tovaryi.brand.list({brandUrl:'gg-'+collection.id})" class="btn btn-1">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div><!--row-->
+            </div><!--container-->
+        </div><!--row1-->
+        <div class="container">
+            <div class="row">
+                <article class="span6">
+                    <h3>Что нового в Jadone Fashion</h3>
+                    <div class="wrapper" ng-repeat="news in menuItems.news">
+
+                        <figure class="img-indent"><img class="span3" ng-src="{{news.img}}" alt="" style="margin-bottom: 30px" />
+
+                        </figure>
+                        <div class="inner-1 overflow extra">
+                            <div class="txt-1" ng-bind="news.name|cut:true:50:''"></div>
+                            <p class="txt" ng-bind-html="trustHtml(news.descr)"><br><br></p>
+                            <a ui-sref="language.all_news.detail({id:news.id})" class="btn btn-1">Смотреть далее</a>
+                            <div class="border-horiz"></div>
+                        </div><!--inner-1-->
+                    </div><!--wrapper-->
+
+
+                    <a ui-sref="language.all_news.list"  class="link-2 btn btn-inverse btn-large">Все новости</a></li>
+                </article>
+
+                <article class="span6">
+                    <h3 style="margin-left: -10px">Популярные модели</h3>
+                    <ul class="list-photo">
+                        <li class="span2" style="margin-left: 20px;" ng-repeat="good in menuItems.goods"><a ui-sref="language.tovaryi.detail({brandUrl:good.gg,urlGood:good.id,color:good.imgUrl})"
+                                ><img ng-src="{{good.img}}" alt="{{good.name}}" /></a></li>
+
+                    </ul>
+
+                </article>
+            </div><!--row-->
+        </div><!--container-->
+    </div><!--content-->
+</div><!--bg-content-->
+
+

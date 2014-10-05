@@ -1,0 +1,127 @@
+<!-- Le styles -->
+
+<!--<link href="assets/css/bootstrap.css" rel="stylesheet">-->
+<!--
+<link href="assets/css/main.css" rel="stylesheet">
+<link href="assets/css/font-style.css" rel="stylesheet">
+<link href="assets/css/flexslider.css" rel="stylesheet">
+-->
+
+<style type="text/css">
+    body {
+        padding-top: 60px;
+    }
+</style>
+
+<!-- Google Fonts call. Font Used Open Sans & Raleway -->
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
+
+
+	<header>
+		<nav class="navbar-nav navbar navbar-fixed-top">
+            <!--<nav class="navbar-nav navbar-inverse navbar-fixed-top">-->
+        	<div class="container" >
+                <div class="row">
+                	<div class="navbar-header">
+                        <a  class="navbar-brand" ui-sref="mainFrame.home" style="margin-left: 15px;">АДМИНПАНЕЛЬ</a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+          				</button>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a data-ng-click="toMainSite()">на сайт</a></li>
+                           <!-- <li ng-repeat="item in menuItem"><a ui-sref="mainFrame.goods({id:$index})"><span ng-bind="item.name.ua"></span></a></li>-->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >заказы</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ><a  ui-sref="mainFrame.orders">опт</a></li>
+                                    <li ><a  ui-sref="mainFrame.ordersRetail">розница</a></li>
+                                    <li ><a  ui-sref="mainFrame.ordersStat">статистика</a></li>
+                                    <li ><a  ui-sref="mainFrame.ordersSummary">сводка</a></li>
+                                    <li ><a  ui-sref="mainFrame.ordersArch">архив</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >объекты</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ><a  ui-sref="mainFrame.filters">фильтры</a></li>
+                                    <li ><a  ui-sref="mainFrame.brands">бренды</a></li>
+                                    <li ><a  ui-sref="mainFrame.category">категории</a></li>
+                                    <li ><a  ui-sref="mainFrame.stuff">товары</a></li>
+                                    <li ><a  ui-sref="mainFrame.collection">коллекции</a></li>
+                                    <li ><a  ui-sref="mainFrame.news">новости</a></li>
+                                    <li ><a  ui-sref="mainFrame.storify">storify</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >доп</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a  ui-sref="mainFrame.places">регионы</a></li>
+                                    <li><a  ui-sref="mainFrame.currency">валюта</a></li>
+                                    <li><a  ui-sref="mainFrame.users">users</a></li>
+                                    <li><a  ui-sref="mainFrame.searchUser">поиск пользователя</a></li>
+                                    <!--<li><a  ui-sref="mainFrame.usersOld">usersold</a></li>-->
+                                    <li><a  ui-sref="mainFrame.editForcePswd">ForcePswd</a></li>
+                                    <li><a  ui-sref="mainFrame.editComments">comments</a></li>
+                                    <li><a  ui-sref="mainFrame.chats">chats</a></li>
+                                    <li><a  ui-sref="mainFrame.stat">стат страницы</a></li>
+                                    <li><a  ui-sref="mainFrame.describe">рассылки</a></li>
+                                    <li><a  ui-sref="mainFrame.ship">доставка</a></li>
+                                    <li><a  ui-sref="mainFrame.inbox">сообщения</a></li>
+                                </ul>
+
+                            </li>
+                            <li ><a  ui-sref="mainFrame.siteMAP">site MAP</a></li>
+                            <li ><a  ui-sref="mainFrame.snapshots">snapshot</a></li>
+                        </ul>
+            		</div>
+            	</div>
+  			</div>
+		</nav>
+    </header>
+
+
+    <section class="content">
+        <section class="container">
+            <!--<br>
+            <br>
+            <span ng-bind="quantityUser.time"></span><span> на сайте - </span><span ng-bind="quantityUser.quantity"></span><span> посетителей.</span>-->
+            <div ui-view></div>
+
+
+
+
+
+        </section>
+    </section>
+
+    <div id="footerwrap">
+        <footer class="clearfix"></footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <p>Jadone Fashion 2014</p>
+                </div>
+
+            </div><!-- /row -->
+        </div><!-- /container -->
+    </div><!-- /footerwrap -->
+
+
+
+
+
+

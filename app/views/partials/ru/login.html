@@ -1,0 +1,118 @@
+<div class="bg-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                <h3>Вход</h3>
+
+            </div>
+            <div class="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                <form class="form" name="formLogin" ng-submit="login(formLogin)" id="formLogin" novalidate  form-autofill-fix>
+                    <div class="form-group" ng-class="{ 'has-success': formLogin.emailLogin.$valid && submittedLogin,
+                                                  'has-error': formLogin.emailLogin.$invalid && submittedLogin }">
+
+                        <label>e-mail</label>
+
+                            <input type="email" name="emailLogin" class="form-control" ng-model="user.email" set-model required  mongoose-error/>
+                                                <span class="help-block" ng-show="formLogin.emailLogin.$error.email && submittedLogin">
+                                                    <!--Doesn't look like a valid email.-->
+                                                    недействительный электронный адрес
+                                                </span>
+                                                <span class="help-block" ng-show="formLogin.emailLogin.$error.required && submittedLogin">
+                                                    <!--What's your email address?-->
+                                                    некорректный электронный адрес
+                                                </span>
+                                                <span class="help-block" ng-show="formLogin.emailLogin.$error.mongoose">
+                                                    {{ errors.emailLogin }}
+                                                </span>
+
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-success': formLogin.passwordLogin.$valid && submittedLogin,
+                                                  'has-error': formLogin.passwordLogin.$invalid && submittedLogin }">
+                        <label>пароль</label>
+
+
+                            <input  type="password" name="passwordLogin" class="form-control" ng-model="user.password" id="passwordLogin"
+                                    ng-minlength="3"
+                                    required
+
+                                    auto-fillable-field
+                                    mongoose-error/>
+
+                                                <span class="help-block"
+                                                      ng-show="(formLogin.passwordLogin.$error.minlength ||
+                                                      formLogin.passwordLogin.$error.required) && submittedLogin">
+                                                    <!--Password must be at least 3 characters.-->
+                                                    введено менее 3-х символов
+                                                </span>
+                                                <span class="help-block" ng-show="formLogin.passwordLogin.$error.mongoose">
+                                                    {{ errors.passwordLogin}}
+                                                </span>
+
+                    </div>
+                    <button class="btn btn-danger btn-1 col-lg-12" style="margin-top: 20px;" type="submit">Войти</button>
+
+                </form>
+
+                <!--<form class="form" name="form" ng-submit="login23(form)" novalidate>
+
+                    <div class="form-group">
+                        <label>e-mail</label>
+                        <input type="email" name="email" class="form-control" ng-model="user.email" set-model>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Пароль</label>
+
+                        <input type="password" name="password" class="form-control" ng-model="user.password" set-model>
+                    </div>
+
+                    <div class="form-group has-error">-->
+                        <!--<p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
+                            Пожалуйста, введите свой логин и пароль.
+                        </p>-->
+                        <!--<p class="help-block">{{ errors.other }}</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger"> Вход </button>
+                </form>-->
+                <form class="form" name="form" ng-submit="resetPswd(form)" novalidate>
+                    <h3>Сброс пароля</h3>
+                    <div class="form-group">
+                        <label>E-mail</label>
+
+                        <input type="email" name="email" class="form-control" ng-model="reseteEmail">
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-1 col-lg-12" style="margin-top: 20px;" > &nbspОК&nbsp </button>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 mb">
+                <hr>
+                <!--<p>Попробуйте  <a ui-sref="language.signup">создать свой аккаунт</a>, это просто!</p>-->
+                Не зарегистрированы? <a ui-sref="language.signup" class="text-center new-account">Создайте свой аккаунт.</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <a  ng-click="cancel()"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+        <h3 class="modal-title"style="color: #666">Уважаемый пользователь!</h3>
+    </div>
+    <div class="modal-body">
+
+        <p>
+           Вам на почту отправлено письмо с новым паролем.
+        </p>
+
+    </div>
+    <div class="modal-footer">
+
+        <button class="btn btn-success" style="height: 34px;" ng-click="cancel()">Ok</button>
+    </div>
+</script>

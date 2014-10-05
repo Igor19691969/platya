@@ -1,0 +1,61 @@
+<div class="container" style="font-size: 14px;">
+    <div class="main">
+        <div class="row">
+            <div class="control-group col-lg-10 col-lg-offset-2">
+                <label class="control-label col-lg-2" for="">ПОСТАВКА В</label>
+                <div class="controls">
+                    <select class="col-lg-4" style="margin-bottom: 20px;" ng-model="ship.id" ng-options="opt._id as opt.name for opt in ships ">
+                        <option value="">выберите страну </option>
+
+                    </select>
+                    <select class="col-lg-4" style="margin-bottom: 20px;" ng-model="ship.countryId" ng-options="opt.id as opt.title for opt in countries ">
+                        <option value="">общая поставка</option>
+                    </select>
+                    <div class="clearfix"></div>
+                    <label class="control-label col-lg-2">ПОСТАВЩИКИ В</label>
+                    <input style="height: 36px" class="col-lg-4" type="text" id="Autocomplete2" ng-model="ship.name"
+                           ng-autocomplete2  details="country.details"
+                           required country-id="ship.countryId"/>
+
+
+                </div>
+
+            </div>
+            {{country.detail}}
+            <div class="control-group col-lg-10 col-lg-offset-2">
+                <label class="control-label col-lg-2" for="cur"></label>
+                <div class="controls">
+                    <div class="input-group">
+                        <input  style="padding-left: 5px;height: 36px; border-radius: 4px; margin-bottom: 10px;" placeholder="добавьте поставщика" id="cur" ng-model="shipper">
+                        <a data-ng-click="addShipper(shipper);shipper=''">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group col-lg-10 col-lg-offset-2">
+                <label class="control-label col-lg-2" for="cur"></label>
+                <div class="controls" data-ng-repeat="shipper in ship.shippers">
+                    <div class="input-group">
+                        <input data-ng-model="ship.shippers[$index]">
+                        <a data-ng-click="deleteShipper($index)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" data-ng-click="saveShip(ship.id)" >сохранить</button>
+            <button type="button" data-ng-click="deleteShip(ship.id)" >удалить</button>
+
+
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+
+

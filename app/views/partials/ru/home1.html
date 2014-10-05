@@ -1,0 +1,220 @@
+<div class="bg-content1">
+<div class="slider">
+    <myslider images="images" />
+</div>
+    <div class="container">
+        <div class="row">
+
+                <!--============================== slider =================================-->
+                <!--<div>-->
+                   <!-- <carousel interval="2000">
+                        <slide ng-repeat="slide in slides" active="slide.active">
+                            <img ng-src="{{slide.img}}" style="margin:auto;">
+                            <div class="carousel-caption">
+                                <h4>Slide {{$index}}</h4>
+                                <p>{{slide.text}}</p>
+                            </div>
+                        </slide>
+                    </carousel>-->
+
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <!--<div id="myCarousel" class="carousel slide">
+                    &lt;!&ndash; Carousel items &ndash;&gt;
+                    <div class="carousel-inner">
+                        <div class="active item"><img class="span12" src="img/slide/1.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/2.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/3.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/4.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/5.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/6.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/7.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/8.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/9.jpg"></div>
+                        <div class="item"><img class="span12" src="img/slide/10.jpg"></div>
+                    </div>
+
+                </div>&lt;!&ndash;myCarousel&ndash;&gt;-->
+
+                <div class="block-slogan">
+                    <h2 class="col-lg-4 col-md-5 col-sm-5 col-xs-12">Мой стиль</h2>
+                    <p  class="slogan col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                        <span>
+                            <strong>Jadone Fashion</strong> - это яркая, стильная и ультрамодная женская одежда от современных дизайнеров. Необычное и лёгкое смешение стилей позволит Вам подобрать именно свой образ. Модная дизайнерская одежда марки Jadone Fashion превратит девушку в стильную супер модель. Оригинальное сочетание тканей, ярких цветов и фактур с элементами декора придутся по вкусу любой моднице. Уникальность и неповторимость каждой модели позволит Вам выделится в огромном мегаполисе современных модных тенденций. Одежда марки Jadone Fashion поможет Вам окружить себя ореолом стиля и вкуса.
+<br><strong></strong>Jadone, в которой ты - Fashion!</strong>
+                            <br>Оптовые цены действуют при заказе для Украины - от <span class="text-error">5 штук</span>, для России - от <span class="text-error">10 штук.</span>
+                        </span>
+                    </p>
+
+                </div><!--block-slogan-->
+            </div><!--span12-->
+        </div><!--row-->
+    </div>
+</div>
+    <!--============================== content =================================-->
+
+    <div id="content">
+        <div class="row-1">
+            <div class="container content-extra">
+                <div class="row">
+                    <ul class="thumbnails thumbnails-1 group">
+                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="thumbnail thumbnail-1">
+                                <a ui-sref="language.stuffSale({'sale':'new'})">
+                                    <h1 class="nazv">
+                                        новинки
+                                    </h1>
+                                    <img src="../../../img/home/5.jpg" alt="" ></a>
+                                <section>
+                                    <a class="a_group"  ui-sref="language.stuffSale({'sale':'new'})">
+                                        <strong>новинки</strong></a>
+                                    <p class="mb">Новые модели сезона осень 2014 - элегантная классика и романтизм...</p>
+                                    <a class="btn btn-1" ui-sref="language.stuffSale({'sale':'new'})">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>
+                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="thumbnail thumbnail-1">
+                                <a  ui-sref="language.stuff({lang:lang,category:'5364d9c9707981801b25648f',section:'category'})">
+                                    <h1 class="nazv">
+                                        платья
+                                    </h1>
+                                    <img src="../../../img/home/4.jpg" alt="" ></a>
+                                <section>
+                                    <a class="a_group"   ui-sref="language.stuff({lang:lang,category:'5364d9c9707981801b25648f',section:'category'})">
+                                        <strong>платья</strong></a>
+                                    <p class="mb">Все платья каталога Jadone Fashion для работы и отдыха ...</p>
+                                    <a class="btn btn-1"  ui-sref="language.stuff({lang:lang,category:'5364d9c9707981801b25648f',section:'category'})">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>
+
+                        <!--<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="thumbnail thumbnail-1">
+                                <a ui-sref="language.stuffSale({'sale':'blackMini'})">
+                                    <h1 class="nazv" >
+                                        мой Париж
+                                    </h1>
+                                    <img src="../../../img/home/7.jpg" alt="" ></a>
+                                <section>
+                                    <a class="a_group"  ui-sref="language.stuffSale({'sale':'blackMini'})">
+                                        <strong>мой Париж</strong></a>
+                                    <p class="mb">Модели платьев а-ля Коко Шанель - современная интерпретация от Jadone Fashion ...</p>
+                                    <a class="btn btn-1" ui-sref="language.stuffSale({'sale':'blackMini'})">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>-->
+                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="thumbnail thumbnail-1">
+                                <a ui-sref="language.stuffSale({'sale':'ajur'})">
+                                    <h1 class="nazv" >
+                                        Ажурный look
+                                    </h1>
+                                    <img src="../../../img/home/7.jpg" alt="" ></a>
+                                <section>
+                                    <a class="a_group"  ui-sref="language.stuffSale({'sale':'ajur'})">
+                                        <strong>Ажурный look</strong></a>
+                                    <p class="mb">Все модели платьев и туник от Jadone Fashion с эксклюзивной перфорацией ...</p>
+                                    <a class="btn btn-1" ui-sref="language.stuffSale({'sale':'ajur'})">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>
+
+                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="thumbnail thumbnail-1">
+                                <a  ui-sref="language.stuff({lang:lang,category:'5367eb481b72646400c2992a',section:'category'})">
+                                    <h1 class="nazv" >
+                                        туники
+                                    </h1>
+                                    <img src="../../../img/home/1.jpg" alt="" ></a>
+                                <section>
+                                    <a class="a_group"  ui-sref="language.stuff({lang:lang,category:'5367eb481b72646400c2992a',section:'category'})">
+                                        <strong>туники</strong></a>
+                                    <p class="mb">Туники от Jadone Fashion с изящной перфорацией в широкой цветовой гамме...</p>
+                                    <a class="btn btn-1"  ui-sref="language.stuff({lang:lang,category:'5367eb481b72646400c2992a',section:'category'})">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>
+
+
+                        <!--<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12" data-ng-repeat="item in category" ng-hide="$index>1">
+                            <div class="thumbnail thumbnail-1">
+                                <a ui-sref="language.stuff({category:item._id,section:mainSection})">
+                                    <h1 class="nazv text-center" ng-bind="item.name[lang]">
+
+                                    </h1>
+                                    <img ng-src="{{item.img}}" alt="">
+                                </a>
+                                    <section style="margin-top: 25px;">
+                                        <a ui-sref="language.stuff({category:item._id,section:mainSection})" style="text-decoration: none; text-transform: uppercase">
+                                            <strong ng-bind="item.name[lang]"></strong></a>
+                                        <p ng-bind="item.desc[lang].substring(0,50)" style="margin-bottom: 20px;"><span>...</span></p>
+                                            <a class="btn btn-1" ui-sref="language.stuff({category:item._id,section:mainSection})">Смотреть далее</a>
+                                    </section>
+                            </div>
+                        </li>-->
+                        <!--<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="thumbnail thumbnail-1">
+                                <a ui-sref="language.stuffSale">
+                                    <h1 class="nazv" style="margin-left: 10px; font-size: 36px; text-align: center">
+                                        sale
+                                    </h1>
+                                    <img src="../../../img/home/1.jpg" alt=""></a>
+                                <section style="margin-top: 25px;">
+                                    <a style="text-decoration: none; text-transform: uppercase" ui-sref="language.stuffSale">
+                                        <strong>sale</strong></a>
+                                    <p style="margin-bottom: 20px;">Представляем модели 2013 - 2014 годов по сниженным ценам...</p>
+                                    <a ui-sref="language.stuffSale" class="btn btn-1">Смотреть далее</a>
+                                </section>
+                            </div>
+                        </li>-->
+
+
+                    </ul>
+                </div><!--row-->
+            </div><!--container-->
+        </div><!--row1-->
+    <div class="bg-content">
+        <div class="container">
+            <div class="row">
+                <article class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3>Что нового в Jadone Fashion</h3>
+                    <div class="row">
+                        <div class="wrapper" ng-repeat="news in lastNews">
+                            <img class="img-indent col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-src="{{news.img}}" alt=""/>
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="txt-1" ng-bind="news.name[lang]|cut:true:50:''"></div>
+                                <span ng-bind="displayDate(news.date)"></span>
+                                <p class="txt"><span ng-bind-html="trustHtml(news.desc[lang])"></span><span>...</span><br><br></p>
+                                <p><span ng-bind="news.author.name"></span></p>
+                                <a ui-sref="language.news.detail({id:news._id})" class="btn btn-1">Смотреть далее</a>
+                                <hr>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div><!--wrapper-->
+                    </div>
+                    <a ui-sref="language.news"  class=" btn btn-danger btn-inverse link-2">Все новости</a></li>
+                </article>
+
+                <article class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 >Популярные модели</h3>
+                    <div class="row">
+                        <ul class="group">
+                            <li  class="col-lg-4 col-md-4 col-sm-6 col-xs-12"  ng-repeat="good in popStuff">
+                                <a ui-sref="language.stuff.detail({section:good.section,category:good.category,id:good.id,color:good.colorId})">
+                                    <img ng-src="{{good.img}}" alt="{{good.name}}" />
+                                    <!--<span ng-bind="good.name"></span><span>&nbsp</span><span ng-bind="good.color">--></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </article>
+            </div><!--row-->
+        </div><!--container-->
+    </div><!--content-->
+</div><!--bg-content-->
+
+

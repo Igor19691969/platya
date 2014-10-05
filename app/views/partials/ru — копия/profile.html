@@ -1,0 +1,161 @@
+<div class="bg-content">
+	<div id="content">
+    <div class="ic"></div>
+    	<div class="container">
+        	<div class="row">
+				<article class="offset2 span9 mt1">
+                	
+                    <form class="form form-horizontal ml70 cursor_default">
+                    	<div class="control-group">
+                        	<label class="control-label main_control-label">Ваш login</label>
+                            	<div class="controls main_controls" style="height: 30px;">
+                                	<p class="cart-item-total block-slogan pt3" ng-bind="profileData.login"></p>
+                                </div>
+                            <label class="control-label main_control-label" style="padding-top:2px">Ваш e-mail</label>
+                            	<div class="controls main_controls">
+                                	<span class="cart-item-total block-slogan" ng-bind="profileData.email"></span>
+                                </div>   
+                       </div>
+                   	</form>
+
+                    <form class="form form-horizontal ml70 cursor_default">
+                    <div class="control-group">
+                        <label class="control-label main_control-label"></label>
+                            <div class="controls main_controls" style="height: 30px;">
+                                <button ng-click="profile.changePswdF()" class="btn  btn-danger"
+                    	ng-disabled="profile.showChangePswd"
+                    >Сменить пароль</button>
+                            </div>
+                    </div>
+                    </form>
+                    
+                    
+<style>
+.msg-block {
+    margin-top:-10px;
+}
+/*.msg-error {
+    color:#F00;
+    font-size:12px;
+}*/
+</style>                    
+                    <form name="pswdForm" class="form form-horizontal ml70" ng-submit="profile.changePswdServer()">
+                    	<div class="control-group">
+                        	<label class="control-label main_control-label mt mb2">Текущий пароль</label>            
+                            <div class="controls main_controls mt mb2">
+                            	<input ng-disabled="!profile.showChangePswd" type="password" class="input span3"  name ="password" required placeholder="текущий пароль" pattern="[A-Za-z0-9.%_]{6,40}" ng-model="profile.psdw" />    
+                        	</div>
+                        
+                        <div  ng-hide="!profile.showChangePswd" ng-show="profile.showChangePswd">
+                            <label class="control-label main_control-label">Новый пароль</label>
+                            <div class="controls main_controls mt mb2">       
+                            	<input type="password" class="input span3" name="password1" id="password1" required placeholder="новый пароль" pattern="[A-Za-z0-9.%_]{6,40}" ng-model="profile.psdw1" />     
+                            </div>
+                        </div>
+                        <div   ng-hide="!profile.showChangePswd" ng-show="profile.showChangePswd">
+                            <label class="control-label main_control-label" style="padding-top:0">Повторите новый пароль</label>
+                            <div class="controls main_controls mt mb2">
+                            	<input type="password" class="input span3"  name="password2" id="password2" required placeholder="новый пароль" pattern="[A-Za-z0-9.%_]{6,40}" ng-model="profile.psdw2" pswd-check="password1"/>
+                            </div>
+                        </div>
+                        <div class="msg-block controls" ng-show="pswdForm.$error"> 
+                         	<span class="text-error" ng-show="pswdForm.password2.$error.pswdmatch">Пароли не совпадают!</span> 
+            			</div>
+                        <!--<div class="msg-block controls" ng-show="pswdForm.$error"> 
+                         	<span class="msg-error" ng-show="pswdForm.password2.$error.pswdmatch">Пароли не совпадают!</span> 
+            			</div>-->
+                        <div class="controls main_controls mt mb2" ng-hide="!profile.showChangePswd" ng-show="profile.showChangePswd">
+                             <button class="btn  btn-danger mb2">Сохранить</button>	
+                         </div>
+                        
+                        
+                        <div ng-hide="!profile.changePswdSuccess" ng-show="profile.changePswdSuccess" class="msg-block main_controls controls">
+       						<span class="pull-left text-error" >Ваш пароль успешно изменен</span>
+						</div>
+                        
+                        <div ng-hide="!profile.changePswdError" ng-show="profile.changePswdSError" class="msg-block main_controls controls">
+       						<span class="pull-left text-error" >Ошибка при смене пароля!</span>
+						</div>
+                       </div>
+                    </form>
+                    
+                    
+                    <p style="font-size: 16px; ">Ваши личные данные необходимы для оформления доставки заказа и обратной связи.<br> Пожалуйста, будьте внимательны при заполнениии полей.</br>
+                    Обязательно полностью укажите фамилию, имя и отчество, а также контактный телефон с кодом страны. </p>
+                    <!--<button class="btn btn-large btn-inverse mb2"
+                    	ng-disabled="profile.showEditProfile" ng-click="profile.showEditProfileChange()">Редактировать
+                    </button>-->
+                    <form class="form form-horizontal  ml70" name="formRegistaration" ng-submit="profileSave()" ng-disabled="!profile.showChangePswd" >
+						<input type="hidden" ng-model="formReg.lang">
+                            <div class="mb1">
+                                <span id="error_registration"></span>&nbsp;
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label main_control-label">ФИО</label>
+                                <div class="controls main_controls">
+                                    <input   type="text" class="input span3 mr" pattern="[A-Za-zА-Яа-я.\s-]{5,100}" required placeholder="ФИО" ng-model="user.profile.fio"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label main_control-label">Телефон</label>
+                                <div class="controls main_controls">
+                                    <input type="text" class="input span3 mr" required placeholder="телефон" pattern="[0-9.\s-+()]{7,40}" ng-model="user.profile.phone"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label main_control-label">Идекс</label>
+                                <div class="controls main_controls">
+                                    <input type="text" class="input span3 mr" required placeholder="индекс" pattern="[0-9-]{2,10}" ng-model="user.profile.zip"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label main_control-label">Страна</label>
+                                <div class="controls main_controls">
+                                    <input type="text" class="input span3 mr" required placeholder="страна" pattern="[A-Za-zА-Яа-я.,\s-]{5,100}" ng-model="user.profile.country"/>
+                                </div>
+                                
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label main_control-label">Регион</label>
+                                <div class="controls main_controls">
+                                    <input type="text" class="input span3 mr" required placeholder="регион" pattern="[A-Za-zА-Яа-я.,\s-]{5,100}" ng-model="user.profile.region"/>
+                                </div>
+                                
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label main_control-label">Город</label>
+                                <div class="controls main_controls">
+                                   <input type="text" class="input span3 mr"  required pattern="[A-Za-zА-Яа-я.\s-]{5,100}" placeholder="город" ng-model="user.profile.city"/>
+                                </div>
+                                
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label main_control-label">Улица дом кв</label>
+                                <div class="controls main_controls">
+                                    <input type="text" class="input span3 mr"  required pattern="[0-9A-Za-zА-Яа-я.,/\s-]{5,100}" placeholder="улица дом кв" ng-model="user.profile.address"/>
+                                    
+                                </div>
+                            </div>
+                             <div class="controls main_controls">
+                             <button class="btn btn-danger mb2" type="submit" ng-disabled="disableButtonSave">Сохранить</button>
+                              </div>
+                             
+                              <div ng-hide="!showUpdateSuccess" ng-show="showUpdateSuccess" class="msg-block main_controls controls">
+                                <span class="pull-left text-error" >Ваш профиль успешно изменен</span>
+                            </div>
+                            <div ng-hide="!showUpdateError" ng-show="showUpdateError" class="msg-block main_controls controls">
+                                <span class="pull-left text-error" >Ошибка при смене профиля!</span>
+                            </div> 
+                              
+      				</form>
+                
+               		<div class="clear"></div>
+               	</article>
+            </div> 
+		</div><!--container-->
+	</div><!--content-->
+</div><!--bg-content-->

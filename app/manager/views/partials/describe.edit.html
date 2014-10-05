@@ -1,0 +1,103 @@
+<div class="container">
+<div class="main">
+    <div class="row">
+        <div class="col-lg-12 back">
+            <a href="" class="btn btn-default"ng-click="$state.transitionTo('mainFrame.describe')">
+                <span class="glyphicon glyphicon-arrow-left" style="font-size: 12px;"></span> в список</a>
+        </div>
+
+
+
+
+            <article class="col-lg-5 col-md-5 col-sm-12">
+                <form name="myForm" class="form form-horizontal" ng-submit="updateItem()">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Описание</h4>
+                        </div>
+                        <div class="panel-body">
+                            <load-image
+                                    no-load="noLoad"
+                                    no-change="noChange"
+                                    upload-url="/api/describe/file/upload"
+                                    item-id="{{item._id}}"
+                                    file-src="{{fileSrc}}"
+                                    item-resourse="Item">
+                            </load-image>
+
+
+                            <h4>Наименование</h4>
+                            <div class="form-group">
+                                <!--<label ng-bind="lang" for="name" class="col-md-1 control-label"></label>-->
+                                <div class="col-md-11">
+                                    <input type="text" placeholder="название рассылки" id="name" class="form-control"
+                                           ng-model="item.name"
+                                           required
+                                           focus-me="focusInput"/>
+                                </div>
+                            </div>
+                            <h4>Описание</h4>
+                            <div class="form-group">
+
+                                <div class="col-md-11">
+                                    <textarea placeholder="содержание рассылки" ng-model="item.desc"id="desc"rows="1" style="height: 100px">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <h4>Модели</h4>
+                            <div class="form-group" style="font-size: 18px;">
+                                <ul>
+                                    <li ng-repeat="stuff in item.stuffs"style="margin-top: 7px;">
+                                        <a ng-click="item.stuffs.splice($index,1)" style="color: #c11919;"><span style="margin-right: 15px;" class=" glyphicon glyphicon-trash"></span></a>
+                                        <span ng-bind="stuff.name[config['DL']]"></span>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-block btn-primary  col-lg-6 col-md-6 col-sm-12 save" type="submit"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp &nbsp сохранить</button>
+                </form>
+            </article>
+            <article class="col-lg-7 col-md-7 col-sm-12">
+              <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Модели</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <h4>Раздел</h4>
+                                <select style="width: 100%; font-size: 16px;" class="mb" ui-select2  ng-model="section" ng-change="cat=categories[section];category='';stuffs=[];">
+                                    <option value="">выберите раздел</option>
+                                    <option ng-repeat="sec in sections" ng-value="sec._id" >{{sec.name[config['DL']]}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <h4>Категория</h4>
+                                <select style="width: 100%; font-size: 16px;" class="mb" ui-select2  ng-model="category">
+                                    <option value="">выберите категорию</option>
+                                    <option ng-repeat="category in cat" ng-value="category._id" >{{category.name[config['DL']]}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        <mongo-paginator-S></mongo-paginator-S>
+
+                        <ul style="margin-top: 20px">
+                            <li  style="font-size: 18px; margin-top: 7px;" ng-repeat="stuff in stuffs"><a data-ng-click="insertStuff(stuff);"><span class="glyphicon glyphicon-plus" style="margin-right: 15px; color: #009900"></span></a><span ng-bind="stuff.name[config['DL']]"></span></li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+            </article>
+
+
+    </div>
+</div>
+</div>

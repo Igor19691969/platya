@@ -1,0 +1,191 @@
+
+<style>
+    p.active {
+        background-color:#ccc ;
+    }
+    .select2-choices {
+        min-height: 150px;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+
+</style>
+
+<div class="bg-content">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-12" style="margin-top: 40px;">
+                <h3 style="font-size: 26px;" ng-hide="Auth.isLoggedIn()"> Для пользования чатом необходимо <a ui-sref="language.login">авторизоваться. </a></h3>
+                <p  data-ng-hide="user.role=='admin'||user.role=='admin_order_retail'||user.role=='admin_order_opt'||user.role=='admin_order_optUA'" style="font-weight: bolder;">Чат создан для удобства Вашего общения с администрацией сайта и менеджером, ведущим Ваши заказы.
+                    После оформления заказа в чате будет создан диалог  с администратором сайта.
+                    Используя чат, Вы сможете оперативно общаться с администратором
+                    и получать информацию об оформленных заказах.
+                    </p>
+
+                    <div class="users col-lg-3 col-lg-offset-1 col-md-4 col-sm-5 col-xs-12  " style="margin-bottom: 50px; padding-left: 0" >
+                        <!--<div class="chat_head">
+                            <h3 >Пользователи</h3>
+
+                        </div>-->
+                        <div style="border: 2px solid #ccc; position: relative ; background-color: #eee;">
+                            <table class="status col-lg-8 col-md-8 col-sm-12 col-xs-12"
+                                   data-ng-show="user.role=='admin'||user.role=='admin_order_retail'||user.role=='admin_order'" style="margin-bottom: 0;">
+                                <tr>
+                                    <td>
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="" ng-model="country"><span>все</span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="россия"ng-model="country"><span>RUS</span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="украина"ng-model="country"><span>UA</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="input-group  mb" style="margin-left: 10px; width: 230px;">
+                                <input  type="text" class="form-control search" ng-model="filterChat" placeholder="поиск по имени" style="border-top: none; border-left: none; border-right: none;">
+                                <!--<span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-search icon-white"></span> </button>
+                                </span>-->
+                            </div>
+                            <div style="margin-top: 20px;">
+
+                        <div class="overflowable "style="padding-top: 20px; height: 436px; margin-bottom: 56px;">
+
+                            <p ng-repeat='user in chatList|filter:filterChat' style="padding: 15px;" ng-class="{'active':user._id==activeChat._id}">
+                                <a data-ng-click="changeChat(user)">
+                                    <span ng-bind="user.name" ng-hide="user._id==$parent.user._id" style="font-weight: bolder; margin-right: 5px;"></span>
+                                    <span data-ng-show="user.newMsg" class="badge badge-success" style="margin-right: 3px; margin-top: 3px; margin-left: 0;">{{user.newMsg}}</span></a>
+                                <!--<span  data-ng-show="$parent.user.role=='admin'">lasljl</span>-->
+                                <a data-ng-click="deleteChat(user)"
+                                   data-ng-show="$parent.user.role=='admin'||$parent.user.role=='admin_order_retail'||$parent.user.role=='admin_order'">
+                                    <span class="glyphicon glyphicon-trash pull-right" style="margin-right: 5px"></span></a>
+
+                            </p>
+                        </div>
+                            <select style="margin-bottom: 0px; margin-top: 2px;" ui-select2  data-placeholder="добавить в список чатов"  ng-model="selectedUser"
+                                    data-ng-show="user.role=='admin'||user.role=='admin_order_retail'||user.role=='admin_order'">
+                                <option value="">добавить в список чатов</option>
+                                <option ng-repeat="User in listUsers|filter:{'country':country}" ng-value="User._id" data-ng-hide="User._id==user._id">{{User.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <div class="chat_content col-lg-7 col-md-8 col-sm-7 col-xs-12 mb" style="padding-bottom: 40px; padding-left: 0; padding-right: 0;">
+
+
+                        <!--<div class="chat_head">
+                            <h3 >Чат с
+                                <span ng-bind="activeChat.name" class="color_summer"></span>
+
+                            </h3>
+                        </div>-->
+
+
+                        <div class="" style="text-align: center;">
+
+                            <div style="margin-top: 20px; margin-bottom: 10px; border: 2px solid #ccc; border-left: none; position: relative ; background-color: #eee; height: 650px">
+                                <a ng-show="activeChat.more" ng-click="moreMsgs()" style="padding-top: 10px; display: block">предыдущие сообщения</a>
+                                <div class="overflowable clearfix " id="divElem" style="padding-top: 20px; height: 540px; margin-top: 20px; margin-bottom: 80px;">
+
+                                    <ul style="padding: 15px;" >
+                                        <!--<li ng-repeat='message in msgs' scroll-if="{{$index == (msgs.length-1)}}"  ng-class="{'chat_user1':message.class,'chat_user2':!message.class}">
+
+                                            <input class="pull-right" type="checkbox" ng-show="button.editChat" ng-model="deleteMsgs[message._id]">
+                                            <span class="chat_date" ng-bind="displayDate(message.date,true)" ng-class="{'pull-right':message.class}"></span></br>
+                                            <span class="chat-message" ng-bind="message.name" ng-class="{'pull-right':message.class}"></span></br>
+                                            <span ng-bind-html="trustHtml(message.msg)"></span>
+
+                                        </li>-->
+                                        <li ng-repeat='message in msgs' scroll-if="{{$index == (msgs.length-1)}}"  ng-class="{'chat_user1':message.class,'chat_user2':!message.class}" style="box-shadow: 1px 2px 2px #ccc;" >
+                                            <input class="pull-right" type="checkbox" ng-show="button.editChat" ng-model="message.delete">
+                                            <span class="chat_date" ng-bind="displayDate(message.date,true)" ng-class="{'pull-right':message.class}"></span></br>
+                                            <span class="chat-message" ng-bind="message.name" ng-class="{'pull-right':message.class}"></span></br>
+
+
+                                            <dir  content="message.msg"></dir>
+
+
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                                <form  name="myForm" class="form-horizontal"data-ng-submit="sendMsg(msg)" style="margin-top: 0; margin-bottom: 0; position: absolute; bottom: 0; width: 100%;">
+
+                                    <textarea  my-text="" ng-model="msg" class="chat_text col-lg-10 col-md-10 col-sm-9 col-xs-9" ng-disabled="!sendMsgBtn" id="myinput">
+
+                                    </textarea>
+                                    <button type="submit" class="btn btn-danger btn-chat col-lg-2 col-md-2 col-sm-3 col-xs-3"style="border-top-left-radius: 0; border-bottom-left-radius: 0; " ng-disabled="!sendMsgBtn">
+                                        <span>Отправить<br>сообщение</span>
+                                    </button>
+                                    <div class="clearfix"></div>
+                                </form>
+                        </div>
+                        </div>
+
+
+                        <div data-ng-show="(user.role=='admin'||user.role=='admin_order_retail'||user.role=='admin_order_opt'||user.role=='admin_order_optUA')&& activeChat._id" >
+                            <a class="btn btn-danger pull-right" data-ng-click="button.editChat=!button.editChat" style="margin-left: 10px;"> <span class="glyphicon glyphicon-cog"></span></a>
+                            <a class="btn btn-danger pull-right" data-ng-click="deleteMsgs()" ng-show="button.editChat" style="margin-left: 10px;"> <span class="glyphicon glyphicon-trash"></span></a>
+                            <input ng-show="button.editChat" class="pull-right" type="checkbox" style="margin-top: 9px;" ng-model="deleteAll">
+
+                        </div>
+                        <div>
+                            <!--http://findicons.com/search/emoticon/6-->
+                            <a  ng-disabled="!sendMsgBtn" data-ng-click="addSmile(1)"><img src="img/smile/1.png" style="width: 30px"></a>
+                            <a data-ng-click="addSmile(2)"><img src="img/smile/2.png" style="width: 30px"></a>
+                            <a data-ng-click="addSmile(3)"><img src="img/smile/3.png" style="width: 30px"></a>
+                            <a data-ng-click="addSmile(4)"><img src="img/smile/4.png" style="width: 30px"></a>
+                            <a data-ng-click="addSmile(5)"><img src="img/smile/5.png" style="width: 30px"></a>
+                            <a data-ng-click="addSmile(6)"><img src="img/smile/6.png" style="width: 30px"></a>
+                            <a data-ng-click="addSmile(7)"><img src="img/smile/7.png" style="width: 30px"></a>
+                        </div>
+                </div>
+
+                <!--<div class="col-lg-4  col-md-4 col-sm-4 col-xs-12">
+                    <div class="users">
+                        <div class="chat_head">
+                            <h3 style="margin-right: 15px; margin-left: 15px">Выбор чата</h3>
+                        </div>-->
+                    <!--<p ng-repeat='message in messages'> {{message.user}}: {{message.text}}</p>-->
+                        <!--<div class="overflowable " style="margin-right: 15px; margin-left: 15px">
+                            <p ng-repeat='user in chatList|filter:filterChat' style="padding: 15px;">
+                                <a data-ng-click="changeChat(user)">
+                                <span ng-bind="user.name" ng-hide="user._id==$parent.user._id" style="font-weight: bolder; margin-right: 5px;"></span>
+                                    <span data-ng-show="user.newMsg" class="badge badge-success" style="margin-right: 3px; margin-top: 3px; margin-left: 0;">{{user.newMsg}}</span>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="input-group search pull-right col-lg-4" style="margin-right: 15px;">
+                            <input  type="text" class="form-control search2" ng-model="filterChat" placeholder="поиск по имени">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-search icon-white"></span> </button>
+                                </span>
+                        </div>-->
+                    </div>
+                </div>
+
+
+
+
+
+
+        </div>
+        <div class="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+
+        </div>
+    </div>
+
+</div>
+</div>
